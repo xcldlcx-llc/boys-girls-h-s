@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { HeroSlides } from "@/components/Interactive";
 import { siteData, school, fmtDate, route, isExternal } from "@/lib/data";
+import { getPhotosSettings } from "@/lib/settings";
 
+export const dynamic = "force-dynamic";
 export const metadata = { description: `${school.vision} ${school.tagline} — ${school.district}.` };
 
 function QuickTiles() {
@@ -10,7 +12,7 @@ function QuickTiles() {
       {siteData.quickLinks.map((q) => {
         const href = route(q.href);
         const ext = isExternal(href);
-        const cls = "reveal bg-paper border border-line rounded-xl py-4 px-3.5 text-center no-underline text-ink font-black text-[.92rem] tracking-wide transition hover:-translate-y-1 hover:shadow-lift hover:border-red hover:text-red-text block";
+        const cls = "reveal bg-white/75 backdrop-blur-sm border border-line/70 rounded-xl py-4 px-3.5 text-center no-underline text-ink font-black text-[.92rem] tracking-wide transition shadow-[inset_0_1px_0_rgba(255,255,255,.8)] hover:-translate-y-1 hover:shadow-lift hover:border-red hover:text-red-text block";
         const icon = <span className="block text-2xl mb-1.5 text-red-text" aria-hidden="true" dangerouslySetInnerHTML={{ __html: q.icon }} />;
         return ext ? (
           <a key={q.label} href={href} className={cls} rel="noopener noreferrer" target="_blank">
@@ -80,7 +82,8 @@ export function EventList({ limit }: { limit?: number }) {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const photosSettings = await getPhotosSettings();
   return (
     <main id="main">
       {/* BKNHS-style top: giant headline band above the imagery */}
@@ -99,7 +102,7 @@ export default function Home() {
 
       {/* Image band with mission words overlaid, slideshow behind */}
       <section className="relative bg-ink text-white overflow-hidden h-[440px] md:h-[520px]" aria-label="School photos">
-        <HeroSlides />
+        <HeroSlides intervalMs={photosSettings.slideShowInterval * 1000} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/20 z-[1]" aria-hidden="true" />
         <div className="absolute inset-0 z-[2] max-w-site mx-auto px-5 flex flex-col justify-between py-8 pointer-events-none">
           <p className="uppercase font-black text-white text-[clamp(1.3rem,3vw,2.2rem)] leading-tight max-w-[14ch] [text-shadow:0_2px_12px_rgba(0,0,0,.6)]">

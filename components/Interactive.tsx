@@ -17,7 +17,7 @@ function usePrefersReducedMotion() {
   );
 }
 
-export function HeroSlides() {
+export function HeroSlides({ intervalMs = 6000 }: { intervalMs?: number }) {
   const slides = siteData.slides || [];
   const [i, setI] = useState(0);
   const [manuallyPaused, setManuallyPaused] = useState(false);
@@ -26,9 +26,9 @@ export function HeroSlides() {
 
   useEffect(() => {
     if (!playing) return;
-    const t = setInterval(() => setI((n) => (n + 1) % slides.length), 6000);
+    const t = setInterval(() => setI((n) => (n + 1) % slides.length), intervalMs);
     return () => clearInterval(t);
-  }, [playing, slides.length]);
+  }, [playing, slides.length, intervalMs]);
 
   return (
     <>

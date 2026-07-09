@@ -8,6 +8,7 @@ import { getDoc, type DocumentItem } from "@/lib/data";
 
 export default function DocViewer() {
   const [doc, setDoc] = useState<DocumentItem | null>(null);
+  const [maxImageWidth, setMaxImageWidth] = useState<number | null>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
 
@@ -24,6 +25,8 @@ export default function DocViewer() {
       if (d) {
         lastFocus.current = btn;
         setDoc(d);
+        const maxW = Number(btn.getAttribute("data-max-width"));
+        setMaxImageWidth(Number.isFinite(maxW) && maxW > 0 ? maxW : null);
       }
     };
     document.addEventListener("click", onClick);
@@ -62,7 +65,12 @@ export default function DocViewer() {
         <div className="flex-1 min-h-[300px] p-5 overflow-auto">
           {doc.type === "image" ? (
             /* eslint-disable-next-line @next/next/no-img-element */
-            <img src={doc.file} alt={doc.alt || doc.description || doc.title} className="mx-auto rounded-lg max-w-full" />
+            <img
+              src={doc.file}
+              alt={doc.alt || doc.description || doc.title}
+              className="mx-auto rounded-lg max-w-full"
+              style={maxImageWidth ? { maxWidth: maxImageWidth } : undefined}
+            />
           ) : doc.type === "video" ? (
             <video controls preload="metadata" className="w-full rounded-lg">
               <source src={doc.file} />

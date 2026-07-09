@@ -2,8 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { allPages, getPage, NAV, type Page } from "@/lib/data";
 
+// "about/media" has its own dedicated route (app/about/media/page.tsx) so its
+// settings-driven gallery can be rendered — excluded here to avoid a route collision.
+const DEDICATED_ROUTES = new Set(["about/media"]);
+
 export function generateStaticParams() {
-  return allPages.map((p) => ({ slug: p.slug }));
+  return allPages.filter((p) => !DEDICATED_ROUTES.has(p.slug.join("/"))).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }) {
@@ -41,6 +45,7 @@ function SideNav({ page }: { page: Page }) {
 
 export default async function ContentPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
+  if (DEDICATED_ROUTES.has(slug.join("/"))) notFound();
   const page = getPage(slug);
   if (!page) notFound();
   return (
