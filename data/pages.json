@@ -1,0 +1,338 @@
+[
+  {
+    "route": "/about/mission",
+    "slug": [
+      "about",
+      "mission"
+    ],
+    "section": "About",
+    "title": "Mission & Vision",
+    "description": "The mission and vision that guide Boys and Girls High School.",
+    "body": "<span class=\"eyebrow\">Who we are</span>\n<h2>Our Mission</h2>\n<p>The mission of Boys and Girls High School is to prepare our students to achieve their full potential, make positive choices, and have a plan for life after high school. This will be accomplished by creating an environment that will successfully teach our students to think critically and conscientiously about themselves, their community, and their global village.</p>\n<h2>Our Vision</h2>\n<p>We believe students achieve success and embrace learning when they feel safe and are supported by competent and caring adults.</p>\n<div class=\"note\">Boys and Girls High School — <strong>Home of the Kangaroos</strong> — serves the Bedford-Stuyvesant community at 1700 Fulton Street, Brooklyn, NY 11213.</div>"
+  },
+  {
+    "route": "/about/principals-message",
+    "slug": [
+      "about",
+      "principals-message"
+    ],
+    "section": "About",
+    "title": "Principal's Message",
+    "description": "A welcome message from Dr. Grecian Harrison, Principal of Boys and Girls High School.",
+    "body": "<div class=\"panel panel--message\">\n  <img src=\"https://3.files.edl.io/039f/20/09/10/131243-1cf0b3f1-dd8c-41a9-ab3d-95fdc5ae686c.jpg\" alt=\"Portrait of Dr. Grecian Harrison, Principal of Boys and Girls High School\">\n  <div>\n    <p>Dear Scholars,</p>\n    <p>I pray that you are well, safe, and ready to begin another school year. I pray that this will be your most active and successful school-year. I pray that you continue on the road to success, happiness, and discovery. For some, I pray that you discover your self-worth.</p>\n    <p>At Boys and Girls High School, our mission is to help to prepare you for life after high school. Because there are many roads one may take, you will have to make the choice. Do you choose roads that lead to success, or do you choose roads that lead to failure. Contrary to what some may have told you, failure is an option &mdash; one that I hope you do not choose.</p>\n    <p>Where do you fit? When you develop your ability to think, you improve the quality of the choices you make. Your choices impact your quality of life. I hope you choose peace over violence; hard work over procrastination; love over hate; maturity over immaturity; scholarship over ignorance; success over failure.</p>\n    <p>There are no limits on your ability to achieve except for those you place on yourself. I believe in you. However, it is more important that you believe in yourself. Stay strong!</p>\n    <p>Sincerely,<br><strong>Grecian Harrison, Ed.D.</strong><br>Principal</p>\n  </div>\n</div>"
+  },
+  {
+    "route": "/about/history",
+    "slug": [
+      "about",
+      "history"
+    ],
+    "section": "About",
+    "title": "Our History",
+    "description": "The story of Boys High School, Girls High School, and the historic institution they became.",
+    "body": "<p class=\"note note--todo\"><strong>Editor note:</strong> this page was \"Coming Soon!\" on the original site. Replace this note with real content — edit this file directly or via tools/build.py.</p>\n<p>Boys and Girls High School traces its roots to Brooklyn's original Boys High School and Girls High School &mdash; institutions whose alumni include Congresswoman Shirley Chisholm, entertainer and activist Lena Horne, and author Isaac Asimov. Known across Bedford-Stuyvesant simply as \"The High,\" the school has stood at 1700 Fulton Street as a pillar of the community.</p>\n<p><a class=\"btn btn--ink\" href=\"/admissions/noted-alumni\">Meet our noted alumni</a></p>"
+  },
+  {
+    "route": "/about/slt",
+    "slug": [
+      "about",
+      "slt"
+    ],
+    "section": "About",
+    "title": "School Leadership Team",
+    "description": "What the School Leadership Team does and when it meets.",
+    "body": "<h2>What is a School Leadership Team?</h2>\n<p>School Leadership Teams (SLTs) are vehicles for developing school-based educational policies, and ensuring that resources are aligned to implement those policies. SLTs assist in the evaluation and assessment of a school's educational programs and their effects on student achievement. SLTs play a significant role in creating a structure for school-based decision making, and shaping the path to a collaborative school culture.</p>\n<p>New York State Education Law Section 2590-h requires every New York City public school to have a School Leadership Team. Chancellor's Regulation A-655 establishes guidelines to ensure the formation of effective SLTs in every school.</p>\n<h2>What is the role of an SLT?</h2>\n<p>An SLT is responsible for developing a school's Comprehensive Educational Plan (CEP). The SLT is not responsible for the hiring or firing of school staff.</p>\n<h2>Meeting dates</h2>\n<p>SLT meetings take place on the <strong>3rd Tuesday of each month</strong>. Dates are announced on the <a href=\"/calendar\">school calendar</a> and are subject to change.</p>\n<p class=\"note\"><strong>Editor note:</strong> content imported from the original site and may be trimmed. Verify against the source page before launch.</p>"
+  },
+  {
+    "route": "/about/faqs",
+    "slug": [
+      "about",
+      "faqs"
+    ],
+    "section": "About",
+    "title": "FAQs",
+    "description": "Answers to the questions families ask most about credits, Regents, attendance, and counseling.",
+    "body": "<div class=\"accordion\">\n<details><summary>If students fail a course, can they still take the Regents exam in that subject?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Yes. However, passing the Regents exam does not guarantee that the student will pass the course.</p></div></details>\n<details><summary>How can I keep track of my child's progress?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Sign up for PupilPath. Contact Ms. Gaston, our Parent Coordinator, at (718) 467-1700 ext. 1071 for additional information.</p></div></details>\n<details><summary>Does attendance affect course grades?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Yes. Students are expected to achieve and maintain a daily attendance rate of 92% or better throughout the year.</p></div></details>\n<details><summary>How many Regents exams are needed to graduate?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Students must pass 5 Regents in specific areas for a Regents diploma. Students interested in an Advanced Regents Diploma must pass 9 Regents in specific areas.</p></div></details>\n<details><summary>What is the role of the guidance counselor?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Guidance counselors help navigate students through high school with counseling and support for academic, social, and emotional needs. They schedule courses for day school, Extended Day (Saturday, iCourse), and Summer School, and guide students through college and career preparation. Parents should maintain ongoing communication with counselors throughout the year and during Parent-Teacher Conferences. Counselors are identified on program cards and report cards.</p></div></details>\n<details><summary>How is high school different from elementary and middle school?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>High school courses earn credit for each passed course &mdash; typically one credit per term per passed course.</p></div></details>\n<details><summary>What is the minimum passing grade?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>65%. Higher grades lead to more options for college admissions, scholarships, and future employment &mdash; students should aim for the highest grades possible.</p></div></details>\n<details><summary>How many credits are needed for promotion?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>To be promoted to: <strong>10th grade</strong> &mdash; 11 credits; <strong>11th grade</strong> &mdash; 22 credits (including 4 in English and/or ESL and 4 in Social Studies); <strong>12th grade</strong> &mdash; 33 credits.</p></div></details>\n<details><summary>How many credits do students need to graduate?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>All students need 44+ credits in required subject areas (CTE and IEP diplomas differ). See <a href=\"/academics/graduation-requirements\">Graduation Requirements</a>.</p></div></details>\n<details><summary>Is Physical Education required?<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Yes. Students must accumulate 4 credits by passing PE during 7 terms. A passing grade in PE is awarded approximately .58 credits (7 PE courses &times; .58 credits = 4.06 credits).</p></div></details>\n</div>"
+  },
+  {
+    "route": "/about/campus-map",
+    "slug": [
+      "about",
+      "campus-map"
+    ],
+    "section": "About",
+    "title": "Campus & Directions",
+    "description": "Where to find Boys and Girls High School and how to get here.",
+    "body": "<h2>Visit us</h2>\n<p><strong>1700 Fulton Street, Brooklyn, NY 11213</strong><br>Phone: <a href=\"tel:+17184671700\">(718) 467-1700</a> &middot; Fax: (718) 804-6859</p>\n<p>The campus is served by the A and C trains (Utica Avenue) and multiple bus lines along Fulton Street.</p>\n<div class=\"panel\" style=\"padding:0;overflow:hidden\">\n<iframe title=\"Map showing the location of Boys and Girls High School at 1700 Fulton Street, Brooklyn\" src=\"https://www.google.com/maps?q=1700+Fulton+Street,+Brooklyn,+NY+11213&output=embed\" width=\"100%\" height=\"420\" style=\"border:0\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>\n</div>\n<p class=\"note note--todo\"><strong>Editor note:</strong> the campus map graphic was \"Coming Soon!\" on the original site. Replace this note with real content — edit this file directly or via tools/build.py.</p>"
+  },
+  {
+    "route": "/about/media",
+    "slug": [
+      "about",
+      "media"
+    ],
+    "section": "About",
+    "title": "Photos & Videos",
+    "description": "Photo gallery and video spotlight from around Boys and Girls High School.",
+    "body": "<h2>Around the school</h2>\n<p>Select any photo to view it larger, right on this page.</p>\n<div class=\"gallery\" id=\"media-gallery\">\n  <button type=\"button\" data-doc=\"media-1\"><img src=\"https://3.files.edl.io/37ff/18/03/02/194029-6550dcf0-2fb9-4a11-b6fb-9d8fee1465f0.jpg\" alt=\"Colorful mural celebrating Boys and Girls High School history\" loading=\"lazy\"></button>\n  <button type=\"button\" data-doc=\"media-2\"><img src=\"https://3.files.edl.io/deef/18/03/02/193642-391674c8-2acf-4d67-8825-b5b41854bc29.jpg\" alt=\"Students walking together outside Boys and Girls High School\" loading=\"lazy\"></button>\n  <button type=\"button\" data-doc=\"media-3\"><img src=\"https://3.files.edl.io/38b8/18/03/02/194213-6a082d26-7ebc-4233-903f-be46238d0d98.jpg\" alt=\"Students gathered in the auditorium during an assembly\" loading=\"lazy\"></button>\n  <button type=\"button\" data-doc=\"media-4\"><img src=\"https://3.files.edl.io/2ffc/18/03/02/194234-e3f0441b-2d94-4bbb-8f28-5d56a1cc3815.jpg\" alt=\"A teacher instructing students working at their desks\" loading=\"lazy\"></button>\n  <button type=\"button\" data-doc=\"media-5\"><img src=\"https://3.files.edl.io/f280/18/03/02/194253-b7d5ec12-a702-4fb6-a7d1-d06c0e3f352f.jpg\" alt=\"PSAL championship team posing with their trophy\" loading=\"lazy\"></button>\n  <button type=\"button\" data-doc=\"media-6\"><img src=\"https://3.files.edl.io/71a7/18/03/02/194313-9529c2e8-bfef-4751-8005-a417ae46d09d.jpg\" alt=\"Home of the Kangaroos banner\" loading=\"lazy\"></button>\n</div>\n<h2 style=\"margin-top:2rem\">Video spotlight</h2>\n<div class=\"doc-card\"><span class=\"doc-icon\" aria-hidden=\"true\">VID</span>\n<div><h3>BGHS Open House &amp; Orientation Tour</h3>\n<p>Video tour of the school from the open house orientation, showcasing classrooms, programs, and student life.</p>\n<div class=\"doc-actions\"><button type=\"button\" class=\"doc-open\" data-doc=\"doc-open-house-video\">Watch here</button></div></div></div>"
+  },
+  {
+    "route": "/about/contact",
+    "slug": [
+      "about",
+      "contact"
+    ],
+    "section": "About",
+    "title": "Contact Us",
+    "description": "Phone, fax, address, and the people to reach at Boys and Girls High School.",
+    "body": "<div class=\"grid grid--2\">\n<div class=\"panel\">\n<h2>Reach the school</h2>\n<p><strong>Boys and Girls High School</strong><br>1700 Fulton Street, Brooklyn, NY 11213<br>\nPhone: <a href=\"tel:+17184671700\">(718) 467-1700</a><br>Fax: (718) 804-6859</p>\n<p><a class=\"btn btn--primary\" href=\"https://outlook.office365.com/owa/calendar/BoysandGirlsHighSchool@NYCDOE.onmicrosoft.com/bookings/\" rel=\"noopener\">Schedule a meeting online</a></p>\n<p class=\"note\">Secure contact forms and staff email addresses are available in the <a href=\"https://www.boysandgirlshs.org/apps/staff/\" rel=\"noopener\">staff directory</a>.</p>\n</div>\n<div class=\"panel\">\n<h2>Key contacts</h2>\n<ul>\n<li><strong>Principal:</strong> Dr. Grecian Harrison</li>\n<li><strong>Parent Coordinator:</strong> Ms. LaVonne Gaston &mdash; (718) 467-1700 ext. 1071 or 1073</li>\n<li><strong>Enrollment:</strong> Kimberly Henry-Rerrie &amp; Alica Martin, Assistant Principals</li>\n<li><strong>College &amp; Career:</strong> Jeannelle Louis, School Counselor</li>\n</ul>\n</div>\n</div>"
+  },
+  {
+    "route": "/academics",
+    "slug": [
+      "academics"
+    ],
+    "section": "Academics",
+    "title": "Departments Overview",
+    "description": "Academic and support departments at Boys and Girls High School.",
+    "body": "<h2>Academic departments</h2>\n<p>Boys and Girls High School offers a full college-preparatory curriculum along with Career and Technical Education (CTE) programs including Electrical Installation and Architecture Design, Advanced Placement courses, and STEAM programs.</p>\n<h2>Support departments</h2>\n<div class=\"grid grid--2\">\n<div class=\"panel\"><h3>Counseling in Schools</h3><p>Every student is assigned a Success Coach; a Mental Health Counselor is on site. <a href=\"/families/counseling\">Learn more</a></p></div>\n<div class=\"panel\"><h3>School Counselors</h3><p>Counselors guide scheduling, academic support, and the college and career process. <a href=\"/families/counseling\">Meet the counselors</a></p></div>\n</div>\n<p class=\"note\"><strong>Editor note:</strong> the full department directory (teachers per department) lives in the Edlio \"Departments\" app on the original site and should be exported and pasted here before launch.</p>"
+  },
+  {
+    "route": "/academics/programs",
+    "slug": [
+      "academics",
+      "programs"
+    ],
+    "section": "Academics",
+    "title": "Academic Programs",
+    "description": "Advanced Placement, Regents Preparation, Saturday and P.M. School, YABC, and CTE Site Safety Training.",
+    "body": "<div class=\"accordion\">\n<details open><summary>Advanced Placement<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>BGHS offers 5 Advanced Placement courses. Ask your counselor about AP enrollment for the coming term.</p></div></details>\n<details><summary>Regents Preparation<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Prepare with these resources:</p><ul>\n<li><a href=\"http://cl.castlelearning.com/\" rel=\"noopener\">Castle Learning Online</a></li>\n<li><a href=\"https://www.khanacademy.org/\" rel=\"noopener\">Khan Academy</a></li>\n<li><a href=\"http://www.nysedregents.org/\" rel=\"noopener\">NYS Regents website (past exams)</a></li>\n<li><a href=\"http://www.wcny.org/education/regentsreview/\" rel=\"noopener\">Regents Review</a></li>\n</ul><p>Saturday Regents Boot Camp runs each spring &mdash; see <a href=\"/news\">news</a> for the current schedule.</p></div></details>\n<details><summary>Saturday School / P.M. School<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Extended-day and weekend options for credit recovery and acceleration. Contact your counselor to enroll.</p></div></details>\n<details><summary>YABC — Young Adult Borough Center<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Evening program supporting students who are behind in credit toward earning their diploma.</p></div></details>\n<details><summary>NYC Department of Buildings — Site Safety Training (CTE)<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>BGHS is a Site Safety Training (SST) Course Provider under NYC Department of Buildings Local Law (1 RCNY &sect;105-03). Two SST courses are offered &mdash; 8-Hour Fall Prevention and 2-Hour Drug and Alcohol Awareness (10 hours total) &mdash; provided to current students in the Electrical Installation and Practice CTE program during senior year by instructor Stephen Hudson ((718) 467-1700 ext. 3700).</p></div></details>\n</div>"
+  },
+  {
+    "route": "/academics/course-catalog",
+    "slug": [
+      "academics",
+      "course-catalog"
+    ],
+    "section": "Academics",
+    "title": "Course Catalog",
+    "description": "Courses offered at Boys and Girls High School.",
+    "body": "<p class=\"note note--todo\"><strong>Editor note:</strong> this page was \"Coming Soon!\" on the original site. Replace this note with real content — edit this file directly or via tools/build.py.</p>"
+  },
+  {
+    "route": "/academics/graduation-requirements",
+    "slug": [
+      "academics",
+      "graduation-requirements"
+    ],
+    "section": "Academics",
+    "title": "Graduation Requirements",
+    "description": "Credits, Regents exams, and promotion requirements for a BGHS diploma.",
+    "body": "<h2>Credits</h2>\n<table><caption class=\"sr-only\">Credit requirements by milestone</caption>\n<tr><th scope=\"col\">Milestone</th><th scope=\"col\">Credits required</th></tr>\n<tr><td>Promotion to 10th grade</td><td>11 credits</td></tr>\n<tr><td>Promotion to 11th grade</td><td>22 credits (incl. 4 English/ESL + 4 Social Studies)</td></tr>\n<tr><td>Promotion to 12th grade</td><td>33 credits</td></tr>\n<tr><td>Graduation</td><td>44+ credits in required subject areas (CTE and IEP diplomas differ)</td></tr>\n</table>\n<h2>Regents exams</h2>\n<p>Students must pass <strong>5 Regents</strong> in specific areas for a Regents diploma, or <strong>9 Regents</strong> for an Advanced Regents Diploma. Physical Education: 4 credits accumulated across 7 terms.</p>\n<p>Questions? See the <a href=\"/about/faqs\">FAQs</a> or ask your counselor.</p>"
+  },
+  {
+    "route": "/academics/curriculum",
+    "slug": [
+      "academics",
+      "curriculum"
+    ],
+    "section": "Academics",
+    "title": "Curriculum & Pacing Guides",
+    "description": "NYC Solves / Illustrative Mathematics pacing guides and instructional resources.",
+    "body": "<p>Our math curriculum follows <strong>NYC Solves — Illustrative Mathematics</strong>. Resources:</p>\n<ul>\n<li><a href=\"https://sites.google.com/schools.nyc.gov/nycsolves/\" rel=\"noopener\">NYC Solves — Illustrative Mathematics</a> (pacing guides and FAQs)</li>\n<li>Instructional Routine Cards (Google Drive — ask your department lead for access)</li>\n<li>Anchor charts: Algebra 1, Geometry, Algebra 2</li>\n</ul>\n<p class=\"note\"><strong>Editor note:</strong> content imported from the original site and may be trimmed. Verify against the source page before launch.</p>"
+  },
+  {
+    "route": "/academics/bell-schedule",
+    "slug": [
+      "academics",
+      "bell-schedule"
+    ],
+    "section": "Academics",
+    "title": "Bell Schedule",
+    "description": "Daily period times at Boys and Girls High School, from breakfast through period 8.",
+    "body": "<table><caption class=\"sr-only\">Bell schedule: period start and end times</caption>\n<tr><th scope=\"col\">Period</th><th scope=\"col\">Start</th><th scope=\"col\">End</th><th scope=\"col\">Length</th></tr>\n<tr><td>Breakfast</td><td>8:30 AM</td><td>9:00 AM</td><td>30 min</td></tr>\n<tr><td>Period 1</td><td>9:01 AM</td><td>9:46 AM</td><td>45 min</td></tr>\n<tr><td>Period 2</td><td>9:49 AM</td><td>10:34 AM</td><td>45 min</td></tr>\n<tr><td>Period 3</td><td>10:37 AM</td><td>11:22 AM</td><td>45 min</td></tr>\n<tr><td>Period 4</td><td>11:25 AM</td><td>12:10 PM</td><td>45 min</td></tr>\n<tr><td>Period 5</td><td>12:13 PM</td><td>12:58 PM</td><td>45 min</td></tr>\n<tr><td>Period 6</td><td>1:01 PM</td><td>1:46 PM</td><td>45 min</td></tr>\n<tr><td>Period 7</td><td>1:49 PM</td><td>2:34 PM</td><td>45 min</td></tr>\n<tr><td>Period 8</td><td>2:37 PM</td><td>3:20 PM</td><td>43 min</td></tr>\n\n</table>"
+  },
+  {
+    "route": "/academics/wifi",
+    "slug": [
+      "academics",
+      "wifi"
+    ],
+    "section": "Academics",
+    "title": "In-School Guest Wi-Fi",
+    "description": "How DOE devices connect to the nycdoeMobile wireless network.",
+    "body": "<p>The DOE has enabled a wireless network ID in all school buildings (<strong>nycdoeMobile</strong>). All centrally-loaned DOE iPads automatically connect to the nycdoeMobile Wi-Fi network inside DOE school buildings:</p>\n<ul>\n<li>No additional setup is required for DOE iPads to connect; every centrally-loaned iPad is configured to connect automatically.</li>\n<li>All other devices should connect to the school's existing Wi-Fi network.</li>\n<li>If a centrally-loaned iPad does not connect automatically, submit a Help Desk ticket (have the device serial number handy): <a href=\"https://supporthub.schools.nyc/\" rel=\"noopener\">SupportHub</a> or (718) 935-5100.</li>\n</ul>"
+  },
+  {
+    "route": "/students",
+    "slug": [
+      "students"
+    ],
+    "section": "Students",
+    "title": "Student Hub",
+    "description": "Everything BGHS students need: classes, athletics, college prep, food menus, and support.",
+    "body": "<div class=\"grid grid--3\">\n<div class=\"panel\"><h3>Daily life</h3><ul>\n<li><a href=\"/academics/bell-schedule\">Bell Schedule</a></li>\n<li><a href=\"https://www.schools.nyc.gov/school-life/food/menus\" rel=\"noopener\">School Food Menu</a></li>\n<li><a href=\"https://classroom.google.com/\" rel=\"noopener\">Google Classroom</a></li>\n<li><a href=\"https://pupilpath.skedula.com/\" rel=\"noopener\">PupilPath</a></li>\n</ul></div>\n<div class=\"panel\"><h3>Get involved</h3><ul>\n<li><a href=\"/students/athletics\">Athletics — 17 teams</a></li>\n<li><a href=\"/students/student-government\">Student Government</a></li>\n<li><a href=\"/about/media\">Photos &amp; Videos</a></li>\n</ul></div>\n<div class=\"panel\"><h3>Plan ahead</h3><ul>\n<li><a href=\"/students/college-corner\">College &amp; Career Corner</a></li>\n<li><a href=\"/academics/programs\">Academic Programs</a></li>\n<li><a href=\"/students/handbook\">Student Handbook</a></li>\n</ul></div>\n</div>"
+  },
+  {
+    "route": "/students/athletics",
+    "slug": [
+      "students",
+      "athletics"
+    ],
+    "section": "Students",
+    "title": "Athletics",
+    "description": "BGHS Kangaroos athletics: 17 PSAL teams, schedules, and how to join.",
+    "body": "<span class=\"eyebrow\">Go Kangaroos</span>\n<h2>17 PSAL sports teams</h2>\n<p>Boys and Girls High School fields 17 teams in the Public Schools Athletic League. Champions play here &mdash; and every student is welcome to try out.</p>\n<div class=\"grid grid--3\">\n<div class=\"panel\"><h3>Schedules &amp; standings</h3><p><a href=\"http://www.psal.org/profiles/school-profile.aspx#16502\" rel=\"noopener\">BGHS on PSAL.org</a><br><a href=\"http://www.psal.org/events-and-standings/school-calendar.aspx?schid=16502\" rel=\"noopener\">Athletic calendar</a></p></div>\n<div class=\"panel\"><h3>Join a team</h3><p><a href=\"https://www.boysandgirlshs.org/apps/form/form.BOYAGHS.sPwnIZS.gQ\" rel=\"noopener\">Apply for a team</a> and a coach will follow up.</p></div>\n<div class=\"panel\"><h3>Coaching staff</h3><p>Meet the coaches in the <a href=\"https://www.boysandgirlshs.org/apps/staff/\" rel=\"noopener\">staff directory</a>.</p></div>\n</div>"
+  },
+  {
+    "route": "/students/college-corner",
+    "slug": [
+      "students",
+      "college-corner"
+    ],
+    "section": "Students",
+    "title": "College & Career Corner",
+    "description": "College counseling, applications, financial aid, and career readiness at BGHS.",
+    "body": "<h2>The College &amp; Career Center</h2>\n<p>The center is led by school counselor <strong>Jeannelle Louis</strong>, who publicizes and hosts events for all students and provides opportunities for life after high school. Services include:</p>\n<ul>\n<li>Catalogues from two- and four-year colleges, vocational and trade schools throughout the United States (online information also available)</li>\n<li>College counseling &mdash; request an appointment through your official teacher</li>\n<li>Appointments with visiting college representatives and College Fair information</li>\n<li>SAT applications and test dates for the year</li>\n<li>Help completing applications, financial aid (FAFSA, EOP, HEOP, TAP, PELL), and scholarships (POSSE, UFT, and more)</li>\n</ul>\n<h2>College readiness</h2>\n<p>The DOE's College and Career Readiness Benchmarks define what students need to enroll, persist, and succeed in college, postsecondary training, and meaningful careers.</p>\n<h2>Helpful links</h2>\n<div class=\"grid grid--2\">\n<div class=\"panel\"><h3><a href=\"https://studentaid.gov/h/apply-for-aid/fafsa\" rel=\"noopener\">FAFSA</a></h3><p>The free federal aid form every current and prospective college student should file annually.</p></div>\n<div class=\"panel\"><h3><a href=\"https://www.hesc.ny.gov/\" rel=\"noopener\">HESC / TAP</a></h3><p>New York State's Tuition Assistance Program &mdash; uses your FAFSA for the online TAP application.</p></div>\n<div class=\"panel\"><h3><a href=\"https://www.cuny.edu/\" rel=\"noopener\">CUNY</a></h3><p>High-quality, accessible education at 24 campuses across New York City.</p></div>\n<div class=\"panel\"><h3><a href=\"https://www.suny.edu/\" rel=\"noopener\">SUNY</a></h3><p>One of the largest comprehensive public university systems in the country.</p></div>\n</div>"
+  },
+  {
+    "route": "/students/student-government",
+    "slug": [
+      "students",
+      "student-government"
+    ],
+    "section": "Students",
+    "title": "Student Government",
+    "description": "Student government at Boys and Girls High School.",
+    "body": "<p class=\"note note--todo\"><strong>Editor note:</strong> this page was \"Coming Soon!\" on the original site. Replace this note with real content — edit this file directly or via tools/build.py.</p>"
+  },
+  {
+    "route": "/students/handbook",
+    "slug": [
+      "students",
+      "handbook"
+    ],
+    "section": "Students",
+    "title": "Student Handbook",
+    "description": "Rules, expectations, and resources for BGHS students.",
+    "body": "<p class=\"note note--todo\"><strong>Editor note:</strong> this page was \"Coming Soon!\" on the original site. Replace this note with real content — edit this file directly or via tools/build.py.</p>\n<p>In the meantime: the <a href=\"https://www.schools.nyc.gov/school-life/know-your-rights/discipline-code\" rel=\"noopener\">NYC Discipline Code</a> applies to all students, and attendance of 92%+ is expected (see <a href=\"/about/faqs\">FAQs</a>).</p>"
+  },
+  {
+    "route": "/students/safety",
+    "slug": [
+      "students",
+      "safety"
+    ],
+    "section": "Students",
+    "title": "Safety & Reporting",
+    "description": "Child abuse prevention and mandated reporting under Chancellor's Regulation A-750.",
+    "body": "<h2>Child abuse prevention — highlights of Chancellor's Regulation A-750</h2>\n<p><strong>If you have reasonable cause to suspect child abuse or maltreatment:</strong></p>\n<ul>\n<li>A mandated reporter must personally make the report by calling the State Central Register (SCR) at <strong>1 (800) 635-1522</strong>, immediately, and obtain a \"Call I.D.\" number.</li>\n<li>The mandated reporter must identify the name, title, and contact information of all school officials with direct knowledge of the allegations.</li>\n<li>Inform the Principal or designee of the allegations and the Call I.D. number.</li>\n<li>Submit the written report (LDSS-2221-A) within 48 hours to the Administration for Children's Services (ACS) in the borough where the alleged subject lives.</li>\n</ul>\n<p class=\"note\"><strong>Editor note:</strong> content imported from the original site and may be trimmed. Verify against the source page before launch.</p>"
+  },
+  {
+    "route": "/families",
+    "slug": [
+      "families"
+    ],
+    "section": "Families",
+    "title": "Family Hub",
+    "description": "Resources for BGHS parents and guardians: PTCA, conferences, food menus, rights, and support.",
+    "body": "<div class=\"grid grid--3\">\n<div class=\"panel\"><h3>Stay connected</h3><ul>\n<li><a href=\"/families/parent-coordinator\">Parent Coordinator</a></li>\n<li><a href=\"/families/ptca\">PTCA meetings</a></li>\n<li><a href=\"https://outlook.office365.com/owa/calendar/BoysandGirlsHighSchool@NYCDOE.onmicrosoft.com/bookings/\" rel=\"noopener\">Schedule a meeting</a></li>\n</ul></div>\n<div class=\"panel\"><h3>Know your rights</h3><ul>\n<li><a href=\"/families/bill-of-rights\">Parents' Bill of Rights</a></li>\n<li><a href=\"https://www.schools.nyc.gov/school-life/know-your-rights/discipline-code\" rel=\"noopener\">Discipline Code</a></li>\n<li><a href=\"https://www.schools.nyc.gov/get-involved/families\" rel=\"noopener\">DOE family information</a></li>\n</ul></div>\n<div class=\"panel\"><h3>Support</h3><ul>\n<li><a href=\"/families/counseling\">Counseling &amp; Support</a></li>\n<li><a href=\"/families/grief-support\">Grief Support</a></li>\n<li><a href=\"/families/volunteer\">Volunteer opportunities</a></li>\n</ul></div>\n</div>\n<h2 style=\"margin-top:2rem\">Latest family notices</h2>\n<div data-docs=\"family-notices\" class=\"grid\" style=\"gap:.9rem\"></div>"
+  },
+  {
+    "route": "/families/parent-coordinator",
+    "slug": [
+      "families",
+      "parent-coordinator"
+    ],
+    "section": "Families",
+    "title": "Parent Coordinator",
+    "description": "A message from Ms. LaVonne Gaston, BGHS Parent Coordinator.",
+    "body": "<div class=\"panel\">\n<p>My name is <strong>Ms. LaVonne Gaston</strong>, Parent Coordinator. I am so honored and proud for the role I have in your family's success here at Boys and Girls High School. It is indeed a privilege for me to support, encourage and develop positive relationships between families and our school.</p>\n<p>Here at Boys and Girls High School we strongly encourage the involvement of our parents and guardians. We realize that you are our most valued stakeholder. So please, make yourselves right at home. Your thoughts, opinions and involvement are very important and you are welcomed here. <strong>#OURPARENTSMATTER</strong>.</p>\n<p>As your Parent Coordinator, I support the vision and the goals that our Principal has for our students and their families. One of our goals this year is to increase parent involvement to 65%. I know TOGETHER we can do it. This is going to be an exciting year, and I look forward to working closely with you and your family.</p>\n<p>Please feel free to contact me by telephone at <strong>(718) 467-1700 extension 1071 or 1073</strong>. I am here for you.</p>\n</div>"
+  },
+  {
+    "route": "/families/ptca",
+    "slug": [
+      "families",
+      "ptca"
+    ],
+    "section": "Families",
+    "title": "PTCA",
+    "description": "The Parent, Teacher & Community Association: membership, board, and monthly meeting dates.",
+    "body": "<p>Parent, Teacher &amp; Community Associations (PTCAs) are school-based organizations. <strong>All parents are automatically members</strong> of their school's PTCA &mdash; no pre-qualifications required. \"Parent\" includes a student's parent or guardian, or any person in a parental or custodial relationship to the student.</p>\n<p>For more information on getting involved, ask our Principal, Dr. Grecian Harrison, or our Parent Coordinator, Ms. LaVonne Gaston.</p>\n<h2>Meetings</h2>\n<p><strong>PTA meetings:</strong> 2nd Tuesday of each month &middot; <strong>SLT meetings:</strong> 3rd Tuesday of each month. Meetings are subject to change &mdash; check <a href=\"/news\">news</a> for each month's notice.</p>\n<p class=\"note\"><strong>Editor note:</strong> the executive board list from the original site is from 2022–23. Update after this year's elections (see June PTA meeting notices).</p>"
+  },
+  {
+    "route": "/families/bill-of-rights",
+    "slug": [
+      "families",
+      "bill-of-rights"
+    ],
+    "section": "Families",
+    "title": "Parents' Bill of Rights",
+    "description": "NYC parents' rights and responsibilities, including translated versions.",
+    "body": "<p>Each child's maximum potential can best be achieved through a partnership between parents and the education community. To foster active engagement, parents have certain rights and responsibilities. Parents have the right to:</p>\n<ul>\n<li>A free public school education for their child, from kindergarten until age 21 or receipt of a high school diploma, whichever comes first, in a safe and supportive learning environment free from discrimination, harassment, bullying, and bigotry</li>\n<li>An evaluation for their child with a disability and, if found in need of special education, a free, appropriate education from age 3 through 21</li>\n<li>Bilingual education or English as a Second Language services for their child with limited English proficiency</li>\n<li>Their child's full instructional schedule in accordance with the DOE school year calendar</li>\n</ul>\n<p><a class=\"btn btn--ink\" href=\"https://www.schools.nyc.gov/school-life/know-your-rights/parents-bill-of-rights\" rel=\"noopener\">Read the full Bill of Rights on schools.nyc.gov</a></p>\n<h2>Translations</h2>\n<div data-docs=\"translations\" class=\"grid\" style=\"gap:.9rem\">\n<div class=\"doc-card\"><span class=\"doc-icon\" aria-hidden=\"true\">PDF</span><div><h3>Parents' Bill of Rights (Polish)</h3><p>Polish translation. All other languages are available on schools.nyc.gov.</p><div class=\"doc-actions\"><button type=\"button\" class=\"doc-open\" data-doc=\"doc-bill-of-rights-polish\">View here</button></div></div></div>\n</div>\n<p class=\"note\"><strong>Editor note:</strong> content imported from the original site and may be trimmed. Verify against the source page before launch.</p>"
+  },
+  {
+    "route": "/families/counseling",
+    "slug": [
+      "families",
+      "counseling"
+    ],
+    "section": "Families",
+    "title": "Counseling & Support",
+    "description": "Counseling in Schools partnership, Success Coaches, and BGHS school counselors.",
+    "body": "<h2>Counseling in Schools</h2>\n<p>Counseling in Schools goes where children, youth, and families face the greatest challenges and builds on their strengths to help them gain skills for success. At BGHS:</p>\n<ul>\n<li>Each student is assigned a <strong>Success Coach</strong> supporting them and their families through all aspects of school</li>\n<li>A <strong>Mental Health Counselor</strong> is on site for therapeutic counseling and family support</li>\n<li>The <strong>After School program</strong> provides additional academic and social support</li>\n<li>Individual and group counseling</li>\n</ul>\n<h2>School counselors</h2>\n<ul>\n<li><strong>Jeannelle Louis</strong> — School Counselor, College &amp; Career Center</li>\n<li><strong>Damali Jimenez-Ozoria</strong> — School Counselor, Cohort Z (Class of 2024) &amp; Cohort 3 (Class of 2027) — (718) 467-1700 ext. 4011</li>\n</ul>\n<p class=\"note\">Email addresses are protected on the public site; reach counselors through the <a href=\"https://www.boysandgirlshs.org/apps/staff/\" rel=\"noopener\">staff directory</a> or the main office.</p>"
+  },
+  {
+    "route": "/families/grief-support",
+    "slug": [
+      "families",
+      "grief-support"
+    ],
+    "section": "Families",
+    "title": "Grief Support",
+    "description": "Understanding grief, plus resources and staff support for students and families.",
+    "body": "<h2>What is grief?</h2>\n<p>\"Grief is the natural reaction to loss. Grief is both a universal and a personal experience. Some examples of loss include the death of a loved one, the ending of an important relationship, job loss, loss through theft or the loss of independence through disability.\" &mdash; Mayo Clinic</p>\n<p>The five stages &mdash; denial, anger, bargaining, depression, and acceptance &mdash; are part of the framework of learning to live with loss. Not everyone goes through all of these steps in the same order; they are tools to help us understand what we may be feeling.</p>\n<p>BGHS has a committed staff that can provide support for you and your family whenever you need it &mdash; contact us through the main office or the <a href=\"/families/counseling\">counseling team</a>.</p>\n<h2>Resources</h2>\n<ul>\n<li><a href=\"https://whatsyourgrief.com/\" rel=\"noopener\">What's Your Grief?</a> — practical articles on coping</li>\n<li><a href=\"https://grief.com/the-five-stages-of-grief/\" rel=\"noopener\">Grief.com — the five stages of grief</a></li>\n<li>Benefits of grief journaling; \"Ball in the Box\" analogy — ask our counselors for printed copies</li>\n</ul>\n<p class=\"note\"><strong>Editor note:</strong> content imported from the original site and may be trimmed. Verify against the source page before launch.</p>"
+  },
+  {
+    "route": "/families/volunteer",
+    "slug": [
+      "families",
+      "volunteer"
+    ],
+    "section": "Families",
+    "title": "Volunteer Opportunities",
+    "description": "Ways for BGHS parents and community members to volunteer.",
+    "body": "<div class=\"grid grid--2\">\n<div class=\"panel\"><h3>AA Store parent volunteers</h3><p>Store hours: Tuesdays and Thursdays, 4th–6th periods (10 AM – 1 PM).</p></div>\n<div class=\"panel\"><h3>Parent Athletic Council</h3><p>For hours and details, call Ms. Gaston at (718) 467-1700 ext. 1071.</p></div>\n</div>\n<p class=\"note\">All school parent volunteers must be fully vaccinated. PTA Executive Board positions are also open — see <a href=\"/families/ptca\">PTCA</a>.</p>"
+  },
+  {
+    "route": "/admissions",
+    "slug": [
+      "admissions"
+    ],
+    "section": "Admissions",
+    "title": "How to Apply",
+    "description": "How to apply to Boys and Girls High School through NYC's high school admissions process.",
+    "body": "<span class=\"eyebrow\">Join the Kangaroo family</span>\n<h2>Thank you for your interest in Boys and Girls High School</h2>\n<p>New York City has the most extensive system of school choice in the country. Everyone must apply to high school. BGHS offers an array of academic courses, support programs, school activities, college accreditation, Career and Technical Education programs, and so much more.</p>\n<div class=\"accordion\">\n<details open><summary>Getting started<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>The year-long admissions process begins at the end of 7th grade with the <a href=\"https://www.schools.nyc.gov/enrollment/enroll-grade-by-grade/high-school/nyc-high-school-admissions-guide\" rel=\"noopener\">High School Admissions Guide</a>, which explains the DOE's <a href=\"https://www.myschools.nyc/en/\" rel=\"noopener\">MySchools</a> directory of 400+ schools. Families typically research options in the fall of 8th grade through open houses, tours, and borough high school fairs each September and October.</p></div></details>\n<details><summary>Filling out your application<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Students complete the citywide high school application online in their <a href=\"https://www.myschools.nyc/\" rel=\"noopener\">MySchools</a> account, ranking up to 12 schools in order of preference. The deadline is typically early December; placements arrive in March. We accept everyone who lives in the attendance zone or is interested in our school and its options.</p><p><strong>Tips:</strong> be sure you're eligible for a school before listing it, and don't list a school you're not willing to attend.</p></div></details>\n<details><summary>Moving to NYC mid-year or over the summer<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p>Reach out to a <a href=\"https://www.schools.nyc.gov/enrollment/enrollment-help/family-welcome-centers\" rel=\"noopener\">Family Welcome Center</a> to find a seat. It helps to call schools directly first &mdash; including ours &mdash; to check admissions criteria and space, then go to the Welcome Center with a list of schools that fit your child.</p></div></details>\n<details><summary>What to consider<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p><strong>The commute:</strong> try the trip before you rank us. <strong>Small school or large?</strong> We offer the benefits of both. <strong>Fast-track or laid-back?</strong> We blend learning styles with a true college-prep curriculum. <strong>\"Chalk &amp; talk\" or collaborative?</strong> Our diverse teaching community offers both.</p></div></details>\n<details><summary>Your options: CTE and Early College<span class=\"chev\" aria-hidden=\"true\">&#9662;</span></summary><div class=\"acc-body\"><p><strong>Career and Technical Education (CTE):</strong> traditional coursework plus professional training &mdash; our programs include Electrical Engineering and Architecture Design, with more in development. Students graduate college- and job-ready, earning professional certifications.</p><p><strong>Early College:</strong> combine high school with up to two years of free college credit at a CUNY partner campus through the <a href=\"https://k16.cuny.edu/eci/our-approach/\" rel=\"noopener\">Early College Initiative</a>.</p></div></details>\n</div>\n<h2 style=\"margin-top:2rem\">Take the tour</h2>\n<div class=\"doc-card\"><span class=\"doc-icon\" aria-hidden=\"true\">VID</span><div><h3>BGHS Open House &amp; Orientation Tour</h3><p>See our classrooms, programs, and student life — right here on this page.</p><div class=\"doc-actions\"><button type=\"button\" class=\"doc-open\" data-doc=\"doc-open-house-video\">Watch the tour</button></div></div></div>\n<h2 style=\"margin-top:2rem\">Enrollment contacts</h2>\n<ul>\n<li><strong>Kimberly Henry-Rerrie</strong> — Assistant Principal</li>\n<li><strong>Alica Martin</strong> — Assistant Principal</li>\n<li><strong>LaVonne Gaston</strong> — Parent Coordinator, (718) 467-1700 ext. 1071</li>\n<li><strong>Jeannelle Louis</strong> &amp; <strong>Damali Jimenez-Ozoria</strong> — School Counselors</li>\n</ul>\n<p><a class=\"btn btn--primary\" href=\"https://www.boysandgirlshs.org/apps/form/form.BOYAGHS.qL57nf1.23G\" rel=\"noopener\">Request transcripts / records</a></p>"
+  },
+  {
+    "route": "/admissions/noted-alumni",
+    "slug": [
+      "admissions",
+      "noted-alumni"
+    ],
+    "section": "Admissions",
+    "title": "Noted Alumni",
+    "description": "Shirley Chisholm, Lena Horne, Isaac Asimov, and the legacy of Boys and Girls High School.",
+    "body": "<p>Boys High School and Girls High School &mdash; the historic institutions that became BGHS &mdash; produced some of America's most consequential figures.</p>\n<div class=\"grid grid--3\">\n<div class=\"card\"><div class=\"card-body\"><span class=\"card-date\">1924–2005</span><h3>Shirley Chisholm</h3><p>American politician, educator, and author. First African-American woman elected to Congress (1969–1983, NY's 12th District) and, in 1972, the first major-party Black candidate for President of the United States and first woman to seek the Democratic nomination. Alumna of Girls' High School.</p></div></div>\n<div class=\"card\"><div class=\"card-body\"><span class=\"card-date\">1917–2010</span><h3>Lena Horne</h3><p>Singer, actress, dancer, and civil rights activist born in Bedford-Stuyvesant. Attended Girls High School, the all-girls public high school that became Boys and Girls High School.</p></div></div>\n<div class=\"card\"><div class=\"card-body\"><span class=\"card-date\">1920–1992</span><h3>Isaac Asimov</h3><p>Author and professor of biochemistry, among the most prolific writers of all time with more than 500 books of science fiction and popular science. Attended Boys High School, graduating at 15.</p></div></div>\n</div>"
+  },
+  {
+    "route": "/staff",
+    "slug": [
+      "staff"
+    ],
+    "section": null,
+    "title": "Faculty & Staff Hub",
+    "description": "Resources for BGHS faculty and staff: directory, newsletter, handbook, and calendars.",
+    "body": "<div class=\"grid grid--3\">\n<div class=\"panel\"><h3>Directory</h3><p><a href=\"https://www.boysandgirlshs.org/apps/staff/\" rel=\"noopener\">Staff directory</a> &middot; <a href=\"/calendar\">School calendar</a></p></div>\n<div class=\"panel\"><h3>Faculty handbook</h3><p>The handbook lives in a password-protected area &mdash; sign in through the school portal or ask an administrator for access.</p></div>\n<div class=\"panel\"><h3>Tools</h3><p><a href=\"https://teachhub.schools.nyc/\" rel=\"noopener\">TeachHub</a> &middot; <a href=\"https://supporthub.schools.nyc/\" rel=\"noopener\">SupportHub</a></p></div>\n</div>\n<h2 style=\"margin-top:2rem\">Staff documents</h2>\n<div data-docs=\"staff\" class=\"grid\" style=\"gap:.9rem\"></div>"
+  }
+]

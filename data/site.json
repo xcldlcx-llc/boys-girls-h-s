@@ -1,0 +1,489 @@
+{
+  "school": {
+    "name": "Boys and Girls High School",
+    "shortName": "BGHS",
+    "tagline": "Home of the Kangaroos",
+    "district": "NYC Public Schools — Brooklyn North, District 16",
+    "dbn": "16K455",
+    "address": "1700 Fulton Street, Brooklyn, NY 11213",
+    "phone": "(718) 467-1700",
+    "fax": "(718) 804-6859",
+    "principal": "Dr. Grecian Harrison, Ed.D.",
+    "parentCoordinator": "Ms. LaVonne Gaston",
+    "parentCoordinatorPhone": "(718) 467-1700 ext. 1071 or 1073",
+    "logo": "https://www.boysandgirlshs.org/pics/BOYAGHS_LOGO.gif",
+    "logoAlt": "Boys and Girls High School logo",
+    "doeLogo": "https://schools.nyc.gov/docs/default-source/admin-files/nycps-logo.png",
+    "doeLogoAlt": "New York City Public Schools logo",
+    "mission": "The mission of Boys and Girls High School is to prepare our students to achieve their full potential, make positive choices, and have a plan for life after high school. This will be accomplished by creating an environment that will successfully teach our students to think critically and conscientiously about themselves, their community, and their global village.",
+    "vision": "We believe students achieve success and embrace learning when they feel safe and are supported by competent and caring adults.",
+    "social": {
+      "facebook": "https://www.facebook.com/Official-Boys-and-Girls-High-School-2020189188247330/",
+      "twitter": "https://twitter.com/Official_BGHS",
+      "instagram": "https://www.instagram.com/official_bghs/",
+      "youtube": "https://www.youtube.com/channel/UCGjwNlnKytIQGvTOH-MdUZg"
+    }
+  },
+  "alert": {
+    "active": false,
+    "text": "",
+    "link": "",
+    "linkText": ""
+  },
+  "ticker": [
+    "Welcome to Boys and Girls High School — Home of the Kangaroos",
+    "First day of school: September 10, 2026",
+    "63% graduation rate — our highest in 7 years",
+    "PTA meets the 2nd Tuesday of every month — all families welcome",
+    "Regents prep, Saturday School, and P.M. School available all year"
+  ],
+  "slides": [
+    {
+      "src": "https://3.files.edl.io/37ff/18/03/02/194029-6550dcf0-2fb9-4a11-b6fb-9d8fee1465f0.jpg",
+      "alt": "Colorful mural celebrating Boys and Girls High School history painted on a school hallway wall"
+    },
+    {
+      "src": "https://3.files.edl.io/deef/18/03/02/193642-391674c8-2acf-4d67-8825-b5b41854bc29.jpg",
+      "alt": "Boys and Girls High School students walking together outside the school building"
+    },
+    {
+      "src": "https://3.files.edl.io/38b8/18/03/02/194213-6a082d26-7ebc-4233-903f-be46238d0d98.jpg",
+      "alt": "Students gathered in the Boys and Girls High School auditorium during an assembly"
+    },
+    {
+      "src": "https://3.files.edl.io/2ffc/18/03/02/194234-e3f0441b-2d94-4bbb-8f28-5d56a1cc3815.jpg",
+      "alt": "A teacher instructing Boys and Girls High School students working at their desks"
+    },
+    {
+      "src": "https://3.files.edl.io/f280/18/03/02/194253-b7d5ec12-a702-4fb6-a7d1-d06c0e3f352f.jpg",
+      "alt": "Boys and Girls High School PSAL championship team posing with their trophy"
+    },
+    {
+      "src": "https://3.files.edl.io/71a7/18/03/02/194313-9529c2e8-bfef-4751-8005-a417ae46d09d.jpg",
+      "alt": "Home of the Kangaroos banner displayed at Boys and Girls High School"
+    }
+  ],
+  "quickLinks": [
+    {
+      "label": "Enroll at BGHS",
+      "href": "admissions/index.html",
+      "icon": "&#9733;"
+    },
+    {
+      "label": "Bell Schedule",
+      "href": "academics/bell-schedule.html",
+      "icon": "&#128336;"
+    },
+    {
+      "label": "Calendar",
+      "href": "calendar.html",
+      "icon": "&#128197;"
+    },
+    {
+      "label": "Transcript Request",
+      "href": "https://www.boysandgirlshs.org/apps/form/form.BOYAGHS.qL57nf1.23G",
+      "icon": "&#128196;"
+    },
+    {
+      "label": "BGHS Library",
+      "href": "https://sites.google.com/schools.nyc.gov/bghscampuslibrary/home",
+      "icon": "&#128218;"
+    },
+    {
+      "label": "PupilPath",
+      "href": "https://pupilpath.skedula.com/",
+      "icon": "&#128200;"
+    },
+    {
+      "label": "Google Classroom",
+      "href": "https://classroom.google.com/",
+      "icon": "&#127891;"
+    },
+    {
+      "label": "School Food Menu",
+      "href": "https://www.schools.nyc.gov/school-life/food/menus",
+      "icon": "&#127869;"
+    }
+  ],
+  "stats": [
+    {
+      "value": "63%",
+      "label": "Graduation rate — highest in 7 years"
+    },
+    {
+      "value": "86%",
+      "label": "Attendance rate"
+    },
+    {
+      "value": "100%",
+      "label": "Increase in students graduating college-ready"
+    },
+    {
+      "value": "17",
+      "label": "PSAL sports teams"
+    },
+    {
+      "value": "5",
+      "label": "Advanced Placement courses"
+    },
+    {
+      "value": "3",
+      "label": "CTE programs"
+    },
+    {
+      "value": "4",
+      "label": "STEAM programs"
+    },
+    {
+      "value": "73%",
+      "label": "Pass Math Regents by year 2"
+    }
+  ],
+  "news": [
+    {
+      "id": "news-pta-june-25",
+      "date": "2026-06-24",
+      "title": "BGHS PTA Meeting — June 25 @ 5PM: Executive Board Elections",
+      "summary": "Join the June PTA meeting. Nominations and elections for the PTA Executive Board: President, Vice President, Secretary, Treasurer, Title I Chairperson, and SLT Chairperson.",
+      "image": "https://3.files.edl.io/f30b/26/06/24/175257-fa06b062-9f54-4669-ad67-b1a0c4df6e81.png",
+      "imageAlt": "Flyer for the BGHS PTA meeting on June 25, 2026 at 5 PM featuring executive board elections",
+      "attachment": "doc-pta-june-25"
+    },
+    {
+      "id": "news-closed-june-4",
+      "date": "2026-06-03",
+      "title": "Schools Closed Thursday, June 4 — Anniversary Day / Chancellor's Conference Day",
+      "summary": "Staff development day; students do not attend. School resumes Friday, June 5, 2026.",
+      "image": "https://3.files.edl.io/33ef/26/06/03/164904-a385f681-7404-4231-92f4-0db5413c6c68.png",
+      "imageAlt": "Notice that schools are closed June 4, 2026 for Anniversary Day and Chancellor's Conference Day",
+      "attachment": "doc-closed-june-4"
+    },
+    {
+      "id": "news-pta-june-9",
+      "date": "2026-06-03",
+      "title": "BGHS PTA Meeting — June 9 @ 6PM",
+      "summary": "We welcome you to join our June 2026 PTA meeting. Nominations and elections for the PTA Executive Board. Will YOU be an officer of our next PTA Board?",
+      "image": "https://3.files.edl.io/2f52/26/06/03/170604-502aa4c3-a992-4879-8b51-3464bc6777c8.png",
+      "imageAlt": "Flyer for the BGHS PTA meeting on June 9, 2026 at 6 PM",
+      "attachment": "doc-pta-june-9"
+    },
+    {
+      "id": "news-closed-memorial-eid",
+      "date": "2026-05-21",
+      "title": "Schools Closed — Memorial Day & Eid al-Adha",
+      "summary": "Schools closed Monday, May 25 (Memorial Day) and Wednesday, May 27 (Eid al-Adha). School resumes Tuesday, May 26 and Thursday, May 28.",
+      "image": "https://3.files.edl.io/9217/26/05/21/143619-9b8c1448-5f20-41af-9b68-c10ba4c0ac73.png",
+      "imageAlt": "Notice that schools are closed for Memorial Day and Eid al-Adha 2026",
+      "attachment": "doc-closed-memorial-eid"
+    },
+    {
+      "id": "news-open-school-may",
+      "date": "2026-05-13",
+      "title": "Open School Conferences — May 20, 2026",
+      "summary": "We ask all parents, guardians, and adult representatives of every student to join us for these virtual meetings.",
+      "image": "https://3.files.edl.io/6eed/26/05/20/191629-9ea59c24-23b2-4571-ba8a-1f83727f9d26.png",
+      "imageAlt": "Letter to parents announcing Open School Conferences on May 20, 2026",
+      "link": "news.html"
+    },
+    {
+      "id": "news-community-forum",
+      "date": "2026-05-12",
+      "title": "Community School Forum — Tuesday, May 12 @ 6PM",
+      "summary": "An interactive evening learning about community schools and how we can advocate for the students, staff, and families in our schools.",
+      "image": "https://3.files.edl.io/a319/26/05/12/181135-b59ea752-8571-4a12-94d8-0c7a9b9c3b65.png",
+      "imageAlt": "Flyer for the Boys and Girls High School Community School Forum on May 12, 2026 at 6 PM",
+      "attachment": "doc-community-forum"
+    },
+    {
+      "id": "news-regents-bootcamp",
+      "date": "2026-04-23",
+      "title": "Regents Boot Camp & Credit Recovery — Saturdays 9AM–3PM",
+      "summary": "June Regents examinations are quickly approaching. Take advantage of Saturday review sessions: 4/25, 5/2, 5/9, 5/16, 5/30, 6/6, 6/13, and 6/20.",
+      "image": "https://3.files.edl.io/bd72/26/04/23/171409-3fb1d0ae-811c-4cab-ac4f-66bf88828dbe.png",
+      "imageAlt": "Flyer for Regents Boot Camp and Credit Recovery Saturday sessions from 9 AM to 3 PM",
+      "attachment": "doc-regents-bootcamp"
+    },
+    {
+      "id": "news-psat-makeup",
+      "date": "2026-04-17",
+      "title": "PSAT/SAT Make-Up Exam Day — Friday, April 24",
+      "summary": "Make-up examinations for sophomores (PSAT) and juniors (SAT).",
+      "image": "https://3.files.edl.io/0f93/26/04/17/163607-0eec5bff-2617-4afe-961d-d072cdb573d3.png",
+      "imageAlt": "Notice for PSAT and SAT make-up exam day on Friday, April 24, 2026",
+      "attachment": "doc-psat-makeup"
+    },
+    {
+      "id": "news-spring-recess",
+      "date": "2026-03-31",
+      "title": "Schools Closed — Spring Recess, April 2–10",
+      "summary": "Schools closed April 2–10, 2026 for Spring Recess. School resumes Monday, April 13.",
+      "image": "https://3.files.edl.io/5046/26/03/31/194243-353746d0-c20c-4b03-b62b-8025f5dc21bd.png",
+      "imageAlt": "Notice that schools are closed April 2 through 10, 2026 for Spring Recess",
+      "attachment": "doc-spring-recess"
+    }
+  ],
+  "events": [
+    {
+      "date": "2026-09-01",
+      "title": "Freshman Orientation Week",
+      "time": "Details to come",
+      "location": "BGHS",
+      "link": "calendar.html"
+    },
+    {
+      "date": "2026-09-10",
+      "title": "First Day of School",
+      "time": "8:30 AM",
+      "location": "1700 Fulton Street",
+      "link": "calendar.html"
+    },
+    {
+      "date": "2026-09-15",
+      "title": "PTA Meeting (2nd Tuesday monthly)",
+      "time": "6:00 PM",
+      "location": "Virtual & in person",
+      "link": "families/ptca.html"
+    },
+    {
+      "date": "2026-09-21",
+      "title": "Schools Closed — Yom Kippur",
+      "link": "calendar.html"
+    },
+    {
+      "date": "2026-09-22",
+      "title": "SLT Meeting (3rd Tuesday monthly)",
+      "time": "After school",
+      "link": "about/slt.html"
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-pta-june-25",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "PTA Meeting Notice — June 25, 2026",
+      "file": "https://4.files.edl.io/3790/06/24/26/175237-9dcd2e79-31b7-4cd1-bf70-fbac97bc7e28.pdf",
+      "description": "Meeting notice for the June 25, 2026 PTA meeting at 5 PM, including executive board election details.",
+      "alt": "PTA meeting flyer for June 25, 2026"
+    },
+    {
+      "id": "doc-closed-june-4",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "Schools Closed — June 4, 2026",
+      "file": "https://4.files.edl.io/027a/06/03/26/164820-3709e43c-d132-446b-8d61-4cd21d2f4700.pdf",
+      "description": "Notice that schools are closed Thursday, June 4, 2026 for Anniversary Day / Chancellor's Conference Day; school resumes June 5.",
+      "alt": "School closure notice for June 4, 2026"
+    },
+    {
+      "id": "doc-pta-june-9",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "PTA Meeting Notice — June 9, 2026",
+      "file": "https://4.files.edl.io/6dc8/06/03/26/170541-61a9dc95-cf00-4e23-9e45-477cddb87720.pdf",
+      "description": "Meeting notice for the June 9, 2026 PTA meeting at 6 PM with board nominations and elections.",
+      "alt": "PTA meeting flyer for June 9, 2026"
+    },
+    {
+      "id": "doc-closed-memorial-eid",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "Schools Closed — Memorial Day & Eid al-Adha 2026",
+      "file": "https://4.files.edl.io/9ebb/05/21/26/143547-bab54bad-e531-4571-b3c9-3d8a05bb97aa.pdf",
+      "description": "Closure notice for Memorial Day (May 25) and Eid al-Adha (May 27), 2026.",
+      "alt": "School closure notice for Memorial Day and Eid al-Adha 2026"
+    },
+    {
+      "id": "doc-community-forum",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "Community School Forum — May 12, 2026",
+      "file": "https://4.files.edl.io/691f/05/12/26/181028-17c0502c-ab3a-4f66-9ef6-50f52f14ddb4.pdf",
+      "description": "Flyer for the Community School Forum, an interactive evening about community schools and family advocacy.",
+      "alt": "Community School Forum flyer for May 12, 2026"
+    },
+    {
+      "id": "doc-regents-bootcamp",
+      "category": "academics",
+      "type": "pdf",
+      "title": "Regents Boot Camp & Credit Recovery Schedule",
+      "file": "https://4.files.edl.io/3f9a/04/23/26/171216-22f2452e-6343-4c16-a509-ff088c1fd0e4.pdf",
+      "description": "Saturday Regents review and credit recovery schedule, 9 AM to 3 PM, spring 2026.",
+      "alt": "Regents Boot Camp schedule flyer"
+    },
+    {
+      "id": "doc-psat-makeup",
+      "category": "academics",
+      "type": "pdf",
+      "title": "PSAT/SAT Make-Up Exam Notice",
+      "file": "https://4.files.edl.io/9428/04/17/26/163717-ef12bf21-1dc4-4b4d-a98e-5f9e105dcd45.pdf",
+      "description": "Notice for the PSAT/SAT make-up exam day on Friday, April 24, 2026.",
+      "alt": "PSAT and SAT make-up exam notice"
+    },
+    {
+      "id": "doc-spring-recess",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "Spring Recess Closure Notice 2026",
+      "file": "https://4.files.edl.io/be74/03/31/26/194206-57cc9012-dc87-49ec-b01d-ef5d9880efbc.pdf",
+      "description": "Notice that schools are closed April 2–10, 2026 for Spring Recess.",
+      "alt": "Spring Recess closure notice"
+    },
+    {
+      "id": "doc-pta-april-14",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "PTA Meeting Notice — April 14, 2026",
+      "file": "https://4.files.edl.io/bc31/03/31/26/194618-411c4762-16a7-4938-88bc-fc6da7df0d11.pdf",
+      "description": "Meeting notice for the April 14, 2026 PTA meeting at 6 PM. Attendance is important for all senior families.",
+      "alt": "PTA meeting flyer for April 14, 2026"
+    },
+    {
+      "id": "doc-eid-al-fitr",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "Eid al-Fitr Closure Notice 2026",
+      "file": "https://4.files.edl.io/6d89/03/17/26/173846-9dc3e172-8b5e-47f4-86dd-4f8445e7fe30.pdf",
+      "description": "Notice that schools are closed March 20, 2026 in observance of Eid al-Fitr; school resumes March 23.",
+      "alt": "Eid al-Fitr school closure notice"
+    },
+    {
+      "id": "doc-google-classroom-guide",
+      "category": "staff",
+      "type": "pdf",
+      "title": "Teacher's Guide to Google Classroom",
+      "file": "https://4.files.edl.io/50f4/03/13/20/215116-b603d323-7328-4ca5-bd93-67c230f7f53d.pdf",
+      "description": "Step-by-step guide for teachers setting up and managing Google Classroom.",
+      "alt": "Teacher's guide to Google Classroom document"
+    },
+    {
+      "id": "doc-bill-of-rights-polish",
+      "category": "family-notices",
+      "type": "pdf",
+      "title": "Parents' Bill of Rights (Polish)",
+      "file": "https://cdn-blob-prd.azureedge.net/prd-pws/docs/default-source/default-document-library/parents-bill-of-rights-polish.pdf",
+      "description": "Polish translation of the NYC Parents' Bill of Rights and Responsibilities. Other languages available on schools.nyc.gov.",
+      "alt": "Parents' Bill of Rights translated into Polish"
+    },
+    {
+      "id": "doc-open-house-video",
+      "category": "admissions",
+      "type": "video",
+      "title": "BGHS Open House & Orientation Tour",
+      "file": "https://d3id26kdqbehod.cloudfront.net/BOYAGHS/2022/07/14/jy9TwNXyIVzMUCvwYq1qO6zRLa6PAyfdGzvVH9ntO3DsmsLoLjLgzEFKpN7x/BGHS+Open+House+Orientation+-+Articulation+Cut+-+2021-480p.mp4",
+      "description": "Video tour of Boys and Girls High School from the open house orientation, showcasing classrooms, programs, and student life.",
+      "alt": "Video tour of Boys and Girls High School"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Kimberly Henry-Rerrie",
+      "role": "Assistant Principal",
+      "area": "Enrollment"
+    },
+    {
+      "name": "Alica Martin",
+      "role": "Assistant Principal",
+      "area": "Enrollment"
+    },
+    {
+      "name": "LaVonne Gaston",
+      "role": "Parent Coordinator",
+      "area": "Families",
+      "phone": "(718) 467-1700 ext. 1071"
+    },
+    {
+      "name": "Jeannelle Louis",
+      "role": "School Counselor — College & Career Center",
+      "area": "Students"
+    },
+    {
+      "name": "Damali Jimenez-Ozoria",
+      "role": "School Counselor — Cohort Z (2024) & Cohort 3 (2027)",
+      "area": "Students",
+      "phone": "(718) 467-1700 ext. 4011"
+    },
+    {
+      "name": "Stephen Hudson",
+      "role": "Electrical Installation Instructor — SST Course Provider",
+      "area": "CTE",
+      "phone": "(718) 467-1700 ext. 3700"
+    }
+  ],
+  "alumni": [
+    {
+      "name": "Shirley Chisholm",
+      "years": "1924–2005",
+      "blurb": "First African-American woman elected to Congress (1968) and first major-party Black candidate for President of the United States (1972). Alumna of Girls' High School.",
+      "alt": "Portrait placeholder for Shirley Chisholm"
+    },
+    {
+      "name": "Lena Horne",
+      "years": "1917–2010",
+      "blurb": "Legendary singer, actress, dancer, and civil rights activist, born in Bedford-Stuyvesant. Attended Girls High School.",
+      "alt": "Portrait placeholder for Lena Horne"
+    },
+    {
+      "name": "Isaac Asimov",
+      "years": "1920–1992",
+      "blurb": "One of the most prolific authors of all time — more than 500 books of science fiction and popular science. Attended Boys High School, graduating at 15.",
+      "alt": "Portrait placeholder for Isaac Asimov"
+    }
+  ],
+  "bellSchedule": [
+    {
+      "period": "Breakfast",
+      "start": "8:30 AM",
+      "end": "9:00 AM",
+      "length": "30 min"
+    },
+    {
+      "period": "Period 1",
+      "start": "9:01 AM",
+      "end": "9:46 AM",
+      "length": "45 min"
+    },
+    {
+      "period": "Period 2",
+      "start": "9:49 AM",
+      "end": "10:34 AM",
+      "length": "45 min"
+    },
+    {
+      "period": "Period 3",
+      "start": "10:37 AM",
+      "end": "11:22 AM",
+      "length": "45 min"
+    },
+    {
+      "period": "Period 4",
+      "start": "11:25 AM",
+      "end": "12:10 PM",
+      "length": "45 min"
+    },
+    {
+      "period": "Period 5",
+      "start": "12:13 PM",
+      "end": "12:58 PM",
+      "length": "45 min"
+    },
+    {
+      "period": "Period 6",
+      "start": "1:01 PM",
+      "end": "1:46 PM",
+      "length": "45 min"
+    },
+    {
+      "period": "Period 7",
+      "start": "1:49 PM",
+      "end": "2:34 PM",
+      "length": "45 min"
+    },
+    {
+      "period": "Period 8",
+      "start": "2:37 PM",
+      "end": "3:20 PM",
+      "length": "43 min"
+    }
+  ]
+}

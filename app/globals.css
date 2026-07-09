@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --color-red: #e81c25;
+  --color-red-text: #b31217;
+  --color-red-dark: #8f0e13;
+  --color-ink: #1c1c1e;
+  --color-ink-soft: #454549;
+  --color-paper: #ffffff;
+  --color-paper-warm: #f7f5f2;
+  --color-paper-gray: #efedea;
+  --color-gold: #f2b01e;
+  --color-line: #dcd9d4;
+  --color-focus: #1a4fd6;
+
+  --font-sans: var(--font-lato), "Helvetica Neue", Arial, sans-serif;
+
+  --container-site: 1180px;
+
+  --shadow-card: 0 2px 8px rgba(28, 28, 30, .08);
+  --shadow-lift: 0 10px 30px rgba(28, 28, 30, .14);
+}
+
+/* ------- base ------- */
+@layer base {
+  body { @apply font-sans text-[17px] leading-[1.65] text-ink bg-paper; }
+  h1, h2, h3, h4 { @apply font-black leading-tight; }
+  a { @apply text-red-text underline-offset-2; }
+  a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex="0"]:focus-visible {
+    outline: 3px solid #1a4fd6; outline-offset: 2px; border-radius: 2px;
+  }
+}
+
+/* ------- component classes used by the content database (data/pages.json) ------- */
+@layer components {
+  .sr-only { @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0; clip: rect(0 0 0 0); }
+
+  .eyebrow { @apply inline-block text-[.8rem] font-black tracking-[.14em] uppercase text-red-text mb-1; }
+
+  .note { @apply bg-paper-warm border-l-4 border-gold py-4 px-5 rounded-r-lg text-[.95rem]; }
+  .note--todo { @apply border-red; }
+
+  .panel { @apply bg-paper rounded-2xl shadow-card border border-line p-8; }
+  .panel--message { @apply grid gap-8 items-start md:grid-cols-[260px_1fr]; }
+  .panel--message img { @apply rounded-xl; }
+
+  .grid--2 { @apply grid gap-6 md:grid-cols-2; }
+  .grid--3 { @apply grid gap-6 md:grid-cols-3; }
+
+  .card { @apply bg-paper border border-line rounded-2xl overflow-hidden shadow-card flex flex-col transition hover:-translate-y-1 hover:shadow-lift; }
+  .card-body { @apply p-5 flex flex-col gap-2 flex-1; }
+  .card-date { @apply text-[.8rem] font-black text-red-text tracking-[.08em] uppercase; }
+  .card-link { @apply mt-auto font-black text-[.92rem] no-underline text-red-text; }
+  .card-link .chev { @apply inline-block transition; }
+  .card:hover .card-link .chev { transform: translateX(4px); }
+
+  .btn { @apply inline-block px-6 py-3 rounded-full font-black no-underline text-base border-2 border-transparent transition hover:-translate-y-0.5; }
+  .btn--primary { @apply bg-red text-white hover:bg-[#c9151d] hover:text-white; }
+  .btn--ink { @apply bg-ink text-white hover:text-white; }
+  .btn--ghost { @apply border-white text-white hover:bg-white/15 hover:text-white; }
+
+  .accordion { @apply grid gap-3; }
+  .accordion details { @apply bg-paper border border-line rounded-xl overflow-hidden; }
+  .accordion summary { @apply cursor-pointer flex items-center gap-3 py-4 px-5 font-black text-[1.02rem] list-none; }
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion summary .chev { @apply ml-auto flex-none w-[26px] h-[26px] rounded-full bg-paper-warm text-red-text grid place-items-center transition text-[.8rem]; }
+  .accordion details[open] summary .chev { transform: rotate(180deg); }
+  .accordion details[open] summary { @apply border-b border-line text-red-text; }
+  .accordion .acc-body { @apply py-4 px-5; }
+
+  .doc-card { @apply flex gap-4 items-start bg-paper border border-line rounded-xl p-5; }
+  .doc-icon { @apply flex-none w-11 h-11 rounded-[10px] bg-[#fdecec] text-red-text grid place-items-center font-black text-[.72rem]; }
+  .doc-card h3 { @apply text-base m-0 mb-1; }
+  .doc-card p { @apply text-[.88rem] text-ink-soft m-0 mb-2; }
+  .doc-actions { @apply flex gap-4 text-[.9rem] font-black; }
+  .doc-actions button, button.doc-open { @apply bg-transparent border-0 p-0 font-black text-red-text cursor-pointer underline underline-offset-2; font-family: inherit; font-size: inherit; }
+
+  .gallery { @apply grid gap-4 grid-cols-[repeat(auto-fill,minmax(220px,1fr))]; }
+  .gallery button { @apply border-0 p-0 bg-transparent cursor-pointer rounded-xl overflow-hidden; }
+  .gallery img { @apply aspect-[4/3] object-cover w-full transition hover:scale-105; }
+
+  .event-item { @apply flex items-center gap-4 bg-paper border border-line rounded-xl py-4 px-5 no-underline text-ink transition w-full text-left hover:border-red hover:translate-x-1; font-family: inherit; font-size: inherit; cursor: pointer; }
+  .event-item .chev { @apply ml-auto text-red-text font-black transition; }
+  .event-item:hover .chev { transform: translateX(4px); }
+
+  /* prose coming from the content database */
+  .content-block h2 { @apply text-2xl mt-8 mb-3 first:mt-0; }
+  .content-block h3 { @apply text-lg mt-4 mb-2; }
+  .content-block p { @apply mb-4; }
+  .content-block ul { @apply list-disc pl-6 mb-4 space-y-1; }
+  .content-block table { @apply w-full border-collapse my-4 text-[.95rem]; }
+  .content-block th, .content-block td { @apply border border-line py-2 px-3 text-left; }
+  .content-block th { @apply bg-paper-warm; }
+}
+
+/* ------- stateful pieces driven by client JS ------- */
+.ticker-track { display: flex; gap: 3rem; white-space: nowrap; padding: .55rem 0; animation: ticker 28s linear infinite; }
+.ticker.paused .ticker-track { animation-play-state: paused; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; }
+.hero-slide.active { opacity: 1; }
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+.dropdown { display: none; }
+.nav-parent[aria-expanded="true"] + .dropdown { display: block; }
+.nav-parent .chev { display: inline-block; margin-left: .3rem; transition: transform .35s; }
+.nav-parent[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
+@keyframes pop { from { transform: scale(.96); opacity: 0; } }
+.modal-box { animation: pop .25s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .ticker-track { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+}
