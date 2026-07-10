@@ -114,11 +114,13 @@
 
 /* ------- footer kangaroo mascot rail ------- */
 .mascot-rail {
-  position: relative; height: 140px; overflow: hidden;
+  position: relative; height: 140px; overflow: hidden; transition: height .25s ease;
   background:
     repeating-linear-gradient(90deg, rgba(255, 255, 255, .16) 0 3px, transparent 3px 46px),
     linear-gradient(to bottom, #7c1f1a, #551210);
 }
+/* hidden mini-game unlocked by clicking the mascot 5x — same strip, just a touch taller */
+.mascot-rail--game { height: 228px; }
 .mascot-rail .ground-line { position: absolute; left: 0; right: 0; bottom: 14px; height: 2px; background: rgba(255, 255, 255, .5); }
 .mascot-rail .mascot-bubble {
   position: absolute; top: 10px; left: 50%; z-index: 2;
@@ -139,6 +141,23 @@
 @keyframes mascot-cross { from { transform: translateX(calc(100vw + 120px)); } to { transform: translateX(-120px); } }
 @keyframes mascot-hop { 0%, 100% { transform: translateY(0) rotate(-3deg); } 45%, 60% { transform: translateY(-20px) rotate(4deg); } }
 @keyframes mascot-shadow-pulse { 0%, 100% { transform: scaleX(1); opacity: .35; } 45%, 60% { transform: scaleX(.6); opacity: .18; } }
+
+/* ------- Kangaroo Crossing mini-game (inside the mascot rail) ------- */
+.mascot-game-fade-in { animation: mascot-game-fade-in .4s ease both; }
+.mascot-game-row {
+  background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, .1) 0 2px, transparent 2px 40px);
+  background-size: 200% 100%;
+  animation: mascot-lane-scroll 6s linear infinite;
+  border-top: 1px solid rgba(255, 255, 255, .06);
+}
+.mascot-game-row--active { box-shadow: inset 0 0 0 9999px rgba(242, 176, 30, .08); }
+.mascot-game-obstacle { animation: mascot-obstacle-bob 1.1s ease-in-out infinite; }
+.mascot-rail--flash { animation: mascot-flash .2s ease; }
+
+@keyframes mascot-game-fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes mascot-lane-scroll { from { background-position: 0 0; } to { background-position: -80px 0; } }
+@keyframes mascot-obstacle-bob { 0%, 100% { margin-top: 0; } 50% { margin-top: -3px; } }
+@keyframes mascot-flash { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(2.2) saturate(0); } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }

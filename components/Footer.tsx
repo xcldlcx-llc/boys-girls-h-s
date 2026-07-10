@@ -1,22 +1,6 @@
 import Link from "next/link";
 import { school } from "@/lib/data";
-
-/* Kangaroo mascot rail: a decorative strip where the school mascot hops
-   left-to-right in an endless loop. Pure CSS (see .mascot-* rules in
-   globals.css) so there's no client JS cost. Pauses on hover/reduced-motion. */
-function MascotRail() {
-  return (
-    <div className="mascot-rail" aria-hidden="true">
-      <span className="ground-line" />
-      <span className="mascot-bubble">Go Kangaroos!</span>
-      <div className="mascot-track">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/mascot-kangaroo.png" alt="" className="mascot-hop" />
-        <span className="mascot-shadow" />
-      </div>
-    </div>
-  );
-}
+import MascotRail from "./MascotRail";
 
 function FooterLink({ href, children, external = false }: { href: string; children: React.ReactNode; external?: boolean }) {
   const cls = "inline-block text-white no-underline transition-[color,transform] duration-200 hover:text-gold hover:translate-x-1";
