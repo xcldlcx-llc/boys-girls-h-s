@@ -169,10 +169,15 @@ const RED = 0xe81c25, RED_D = 0xb31217, GOLD = 0xf2b01e, INK = 0x1c1c1e;
 const roo = new THREE.Group();
 const rooTexture = new THREE.TextureLoader().load("/mascot-kangaroo.png");
 if ("colorSpace" in rooTexture) rooTexture.colorSpace = THREE.SRGBColorSpace;
+/* mirrored: the artwork faces left, but obstacles approach from the right.
+   Flipping via the texture's own UVs rather than a negative sprite scale,
+   since that's a more reliably-supported way to mirror a Sprite's image. */
+rooTexture.wrapS = THREE.RepeatWrapping;
+rooTexture.repeat.x = -1;
 const ROO_H = 2.05, ROO_W = ROO_H * (460 / 600);
 const rooSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: rooTexture, transparent: true }));
-rooSprite.scale.set(-ROO_W, ROO_H, 1); /* mirrored: the artwork faces left, but obstacles approach from the right */
-rooSprite.position.set(-0.15, ROO_H / 2, 0);
+rooSprite.scale.set(ROO_W, ROO_H, 1);
+rooSprite.position.set(0.15, ROO_H / 2, 0);
 roo.add(rooSprite);
 roo.position.set(-5.2, 0, 0);
 scene.add(roo);
