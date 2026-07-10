@@ -88,7 +88,7 @@
   var ROO_ASPECT = 460 / 600;
 
   /* ============ state ============ */
-  var state = "idle", paused = false, t = 0, last = 0, dist = 0, score = 0, speed = 300;
+  var state = "idle", paused = false, t = 0, last = 0, dist = 0, score = 0, speed = 340;
   var roo = { x: 64, y: GROUND, vy: 0, duck: false, hop: 0, dead: false };
   var obstacles = [], popups = [], spawnIn = 1.2;
   var SCENES = ["Classroom", "Hallway", "Gym", "Track Field", "Pool Deck"];
@@ -106,7 +106,7 @@
   /* ============ input ============ */
   function jump() {
     if (state !== "run" || paused) return;
-    if (roo.y >= GROUND - 1) { roo.vy = -600; roo.duck = false; }
+    if (roo.y >= GROUND - 1) { roo.vy = -760; roo.duck = false; }
   }
   function duck(on) { if (state === "run" && roo.y >= GROUND - 1) roo.duck = on; }
 
@@ -144,7 +144,7 @@
   }
 
   function start() {
-    obstacles = []; popups = []; dist = 0; score = 0; speed = 300; spawnIn = 1.4;
+    obstacles = []; popups = []; dist = 0; score = 0; speed = 340; spawnIn = 1.4;
     scene = 0; sceneT = 0; bellFlash = 0;
     roo.y = GROUND; roo.vy = 0; roo.duck = false; roo.dead = false;
     state = "run"; paused = false;
@@ -195,7 +195,7 @@
   /* ============ update ============ */
   function update(dt) {
     t += dt; dist += speed * dt; sceneT += dt;
-    speed = Math.min(560, 300 + dist / 90);
+    speed = Math.min(620, 340 + dist / 78);
     score = Math.floor(dist / 12);
     scoreEl.textContent = score;
 
@@ -203,7 +203,7 @@
     if (bellFlash > 0) bellFlash -= dt;
     sceneEl.textContent = SCENES[scene];
 
-    roo.vy += 1600 * dt; roo.y += roo.vy * dt;
+    roo.vy += 2300 * dt; roo.y += roo.vy * dt;
     if (roo.y > GROUND) { roo.y = GROUND; roo.vy = 0; }
     roo.hop += dt * (roo.y >= GROUND - 1 ? 10 : 3);
 
@@ -287,7 +287,8 @@
     if (rooImg.complete && rooImg.naturalWidth > 0) {
       var h = dk ? 46 : 72, w = h * ROO_ASPECT;
       cx.save();
-      if (dk) cx.scale(1.22, 0.64);
+      /* mirrored: the artwork faces left, but obstacles approach from the right */
+      cx.scale(dk ? -1.22 : -1, dk ? 0.64 : 1);
       cx.drawImage(rooImg, -w / 2, -h - bob, w, h);
       cx.restore();
     }
