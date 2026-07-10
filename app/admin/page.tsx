@@ -27,7 +27,7 @@ export default async function AdminPage() {
         <div className="w-full max-w-sm panel text-center">
           <h1 className="text-2xl mb-1">Access Denied</h1>
           <p className="text-ink-soft text-[.9rem] mb-6">
-            {auth.email} isn&rsquo;t on the approved list for the site admin. Contact the site owner if you believe this is a mistake.
+            {`${auth.email} isn’t on the approved list for the site admin. Contact the site owner if you believe this is a mistake.`}
           </p>
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- SDK-mounted route, not an app page */}
           <a href="/auth/logout?returnTo=/" className="btn btn--ink w-full text-center">Sign Out</a>
