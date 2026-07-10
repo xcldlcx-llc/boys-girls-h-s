@@ -1,47 +1,31 @@
-import { createHmac, timingSafeEqual } from "crypto";
+import { auth0 } from "@/lib/auth0";
 
-export const ADMIN_COOKIE_NAME = "bghs_admin_session";
-const SESSION_TTL_MS = 1000 * 60 * 60 * 12; // 12 hours
-
-function sign(payload: string): string {
-  const secret = process.env.SESSION_SECRET;
-  if (!secret) throw new Error("SESSION_SECRET is not set");
-  return createHmac("sha256", secret).update(payload).digest("hex");
+function getAllowedEmails(): string[] {
+  return (process.env.ADMIN_ALLOWED_EMAILS || "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
 }
 
-function safeEqual(a: string, b: string): boolean {
-  const bufA = Buffer.from(a);
-  const bufB = Buffer.from(b);
-  if (bufA.length !== bufB.length) return false;
-  return timingSafeEqual(bufA, bufB);
-}
+export type AdminAuthState =
+  | { status: "signed-out" }
+  | { status: "forbidden"; email: string }
+  | { status: "authorized"; email: string; name?: string | null };
 
-export function createSessionCookieValue(): string {
-  const expires = Date.now() + SESSION_TTL_MS;
-  const payload = `admin.${expires}`;
-  return `${payload}.${sign(payload)}`;
-}
+export async function getAdminAuthState(): Promise<AdminAuthState> {
+  const session = await auth0.getSession();
+  const email = session?.user?.email;
+  if (!email) return { status: "signed-out" };
 
-export function verifySessionCookieValue(value: string | undefined): boolean {
-  if (!value) return false;
-  const parts = value.split(".");
-  if (parts.length !== 3) return false;
-  const [role, expiresStr, sig] = parts;
-  const payload = `${role}.${expiresStr}`;
-  let expected: string;
-  try {
-    expected = sign(payload);
-  } catch {
-    return false;
+  const allowed = getAllowedEmails();
+  if (!allowed.includes(email.toLowerCase())) {
+    return { status: "forbidden", email };
   }
-  if (!safeEqual(sig, expected)) return false;
-  const expires = Number(expiresStr);
-  if (!Number.isFinite(expires) || Date.now() > expires) return false;
-  return role === "admin";
+  return { status: "authorized", email, name: session?.user?.name };
 }
 
-export function checkPassword(candidate: string): boolean {
-  const actual = process.env.ADMIN_PASSWORD;
-  if (!actual || !candidate) return false;
-  return safeEqual(candidate, actual);
+/** For API routes: true only if signed in AND on the allowlist. */
+export async function isAuthorizedAdmin(): Promise<boolean> {
+  const state = await getAdminAuthState();
+  return state.status === "authorized";
 }

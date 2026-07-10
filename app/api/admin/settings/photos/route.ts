@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { verifySessionCookieValue, ADMIN_COOKIE_NAME } from "@/lib/admin-auth";
+import { isAuthorizedAdmin } from "@/lib/admin-auth";
 import { defaultPhotosSettings, type PhotosSettings } from "@/lib/settings";
 import { writeSetting } from "@/lib/settings-write";
 
@@ -33,9 +32,7 @@ function sanitize(body: unknown): PhotosSettings | null {
 }
 
 export async function POST(req: NextRequest) {
-  const cookieStore = await cookies();
-  const authed = verifySessionCookieValue(cookieStore.get(ADMIN_COOKIE_NAME)?.value);
-  if (!authed) {
+  if (!(await isAuthorizedAdmin())) {
     return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
   }
 

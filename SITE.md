@@ -38,9 +38,10 @@ Editing either file updates the site automatically; no code changes needed for t
 - 2026-07-09: Redesigned the footer — the Families/Students/Staff links now nudge over and turn gold on hover, and there's a new reddish "running track" strip where an AI-generated kangaroo mascot hops across on a loop (it pauses and says "Go Kangaroos!" when you hover over it, and holds still for anyone with reduced-motion turned on).
 - 2026-07-09: Gave every card-style box on the site — news cards, quick-link tiles, the mission/principal boxes, event rows, document cards — a light "frosted glass" polish: a touch of see-through softness and a subtle glow along the top edge, instead of flat white.
 - 2026-07-09: Added a password-protected Site Admin page (linked at the very bottom of the footer). First panel built: **Photos**, matching the reference screenshot. Settings save to a real, separate storage system (Vercel Edge Config), not just a file, so changes actually take effect on the live site. See "Site Admin" section below.
+- 2026-07-09: Swapped the shared admin password for real Auth0 sign-in, restricted to an approved email list. Also cleaned up two extra, unused Vercel projects that had appeared alongside this site's real one.
 
 ## Site Admin
-- URL: `/admin` (small "Site Admin" link at the bottom of the footer). Sign in with the password shared in chat — change it any time by updating the `ADMIN_PASSWORD` value in the Vercel project's environment variables.
+- URL: `/admin` (small "Site Admin" link at the bottom of the footer). Sign-in is through Auth0 (real login, not a shared password) — only email addresses on the approved list can actually get in after signing in. Approved so far: `dantelcorbett@gmail.com`, `SAndrews9@schools.nyc.gov`. That list lives in the `ADMIN_ALLOWED_EMAILS` Vercel environment variable; ask to add someone and I'll update it.
 - Sidebar lists all the category names from the old Edlio admin panel; only **Photos** is wired up so far. The rest are greyed out with "Coming soon" until their fields are specced out.
 - **Photos panel fields and what they actually do:**
   - Page Title → the heading and browser tab title on the Photos & Videos page (`/about/media`)

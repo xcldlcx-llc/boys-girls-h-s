@@ -1,27 +1,20 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { SETTINGS_CATEGORIES, IMPLEMENTED_CATEGORIES, type PhotosSettings } from "@/lib/settings";
 import PhotosPanel from "./PhotosPanel";
 
-export default function AdminDashboard({ photos }: { photos: PhotosSettings }) {
-  const router = useRouter();
+export default function AdminDashboard({ photos, email }: { photos: PhotosSettings; email: string }) {
   const [active, setActive] = useState<string>("Photos");
-  const [loggingOut, setLoggingOut] = useState(false);
-
-  async function logout() {
-    setLoggingOut(true);
-    await fetch("/api/admin/logout", { method: "POST" });
-    router.refresh();
-  }
 
   return (
     <main id="main" className="max-w-site mx-auto px-5 py-10">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl m-0">Settings</h1>
-        <button type="button" onClick={logout} disabled={loggingOut} className="btn btn--ink !py-2 !px-4 text-[.85rem]">
-          {loggingOut ? "Signing out…" : "Sign out"}
-        </button>
+      <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
+        <div>
+          <h1 className="text-3xl m-0">Settings</h1>
+          <p className="text-ink-soft text-[.85rem] m-0">Signed in as {email}</p>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- SDK-mounted route, not an app page */}
+        <a href="/auth/logout?returnTo=/" className="btn btn--ink !py-2 !px-4 text-[.85rem]">Sign out</a>
       </div>
       <div className="grid gap-0 md:grid-cols-[240px_1fr] border border-line rounded-2xl overflow-hidden bg-paper">
         <nav aria-label="Settings categories" className="border-b md:border-b-0 md:border-r border-line bg-paper-warm">

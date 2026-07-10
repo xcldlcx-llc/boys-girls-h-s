@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.25.0",
     "@vercel/edge-config": "^1.4.3",
     "agentation": "^3.0.1",
     "next": "16.2.10",
