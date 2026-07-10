@@ -39,9 +39,10 @@ Editing either file updates the site automatically; no code changes needed for t
 - 2026-07-09: Gave every card-style box on the site — news cards, quick-link tiles, the mission/principal boxes, event rows, document cards — a light "frosted glass" polish: a touch of see-through softness and a subtle glow along the top edge, instead of flat white.
 - 2026-07-09: Added a password-protected Site Admin page (linked at the very bottom of the footer). First panel built: **Photos**, matching the reference screenshot. Settings save to a real, separate storage system (Vercel Edge Config), not just a file, so changes actually take effect on the live site. See "Site Admin" section below.
 - 2026-07-09: Swapped the shared admin password for real Auth0 sign-in, restricted to an approved email list. Also cleaned up two extra, unused Vercel projects that had appeared alongside this site's real one.
+- 2026-07-09: Finished wiring up Site Admin end-to-end — sign-in and Save both confirmed working on the live site. Also fixed a Vercel account-level login wall that was accidentally blocking the whole public site, not just the admin page.
 
 ## Site Admin
-- URL: `/admin` (small "Site Admin" link at the bottom of the footer). Sign-in is through Auth0 (real login, not a shared password) — only email addresses on the approved list can actually get in after signing in. Approved so far: `dantelcorbett@gmail.com`, `SAndrews9@schools.nyc.gov`. That list lives in the `ADMIN_ALLOWED_EMAILS` Vercel environment variable; ask to add someone and I'll update it.
+- URL: `/admin` (small "Site Admin" link at the bottom of the footer). Sign-in is through Auth0 (real login, not a shared password) — only email addresses on the approved list can actually get in after signing in. Approved so far: `dantelcorbett@gmail.com`, `SAndrews9@schools.nyc.gov`, `xcldlcx@gmail.com`. That list lives in the `ADMIN_ALLOWED_EMAILS` Vercel environment variable; ask to add someone and I'll update it (note: adding someone requires a quick redeploy to take effect, same as any other environment variable).
 - Sidebar lists all the category names from the old Edlio admin panel; only **Photos** is wired up so far. The rest are greyed out with "Coming soon" until their fields are specced out.
 - **Photos panel fields and what they actually do:**
   - Page Title → the heading and browser tab title on the Photos & Videos page (`/about/media`)
@@ -51,7 +52,7 @@ Editing either file updates the site automatically; no code changes needed for t
   - Maximum Image Width / Thumbnail Width / Thumbnail Height / JPEG Quality → control the real size and image quality of the photo gallery
   - Slide Show Refresh Interval → controls both the Photos gallery and the homepage's rotating photo banner
 - Settings are stored in a Vercel Edge Config store (not a file on disk), so they persist correctly once deployed, not just in the local preview.
-- **One setup step still pending:** saving currently fails safely with a clear on-screen error until a Vercel API token is added (I can't generate this one myself for security reasons — see chat for the two-minute manual step).
+- Sign-in and Save are both confirmed working end-to-end on the live production site as of 2026-07-09.
 
 ## Data & Security
 - **This site does not currently collect or store any visitor or student data.** No forms, no sign-in, no database, no analytics/tracking scripts. Everything on the site (news, events, staff names, page text) comes from two files you already control (`data/site.json`, `data/pages.json`) and is public information equivalent to what the school already publishes.
