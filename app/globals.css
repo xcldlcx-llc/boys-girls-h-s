@@ -120,7 +120,7 @@
     linear-gradient(to bottom, #7c1f1a, #551210);
 }
 /* hidden mini-game unlocked by clicking the mascot 5x — same strip, just a touch taller */
-.mascot-rail--game { height: 228px; }
+.mascot-rail--game { height: 260px; }
 .mascot-rail .ground-line { position: absolute; left: 0; right: 0; bottom: 14px; height: 2px; background: rgba(255, 255, 255, .5); }
 .mascot-rail .mascot-bubble {
   position: absolute; top: 10px; left: 50%; z-index: 2;

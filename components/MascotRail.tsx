@@ -1,10 +1,13 @@
 "use client";
 /* Kangaroo mascot rail: a decorative strip where the school mascot hops
    left-to-right in an endless loop. Click it 5 times in a row to unlock
-   a hidden mini-game (public/games/kangaroo-crossing.html) embedded via
-   iframe in the same strip — kept as a standalone canvas widget rather
-   than a React component so it isn't constrained by the app's lint rules. */
-import { useCallback, useEffect, useRef, useState } from "react";
+   a hidden 3D mini-game (public/games/kangaroo-crossing-3d.html, falling
+   back to the 2D classic edition on devices without WebGL) embedded via
+   the KangarooCrossing wrapper — kept as a standalone canvas/WebGL widget
+   rather than a plain React component so it isn't constrained by the
+   app's strict render-purity lint rules. */
+import { useCallback, useRef, useState } from "react";
+import KangarooCrossing from "./KangarooCrossing";
 
 const UNLOCK_CLICKS = 5;
 const UNLOCK_WINDOW_MS = 2500;
@@ -29,24 +32,20 @@ export default function MascotRail() {
     triggerRef.current?.focus();
   }, []);
 
-  useEffect(() => {
-    if (!gameActive) return;
-    function onMessage(e: MessageEvent) {
-      if (e.data?.type === "bghs-mascot-game-close") closeGame();
-    }
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
-  }, [gameActive, closeGame]);
-
   return (
     <div className={`mascot-rail${gameActive ? " mascot-rail--game" : ""}`}>
       {gameActive ? (
-        <iframe
-          src="/games/kangaroo-crossing.html"
-          title="Kangaroo Crossing — a BGHS mini game"
-          style={{ width: "100%", height: "100%", border: 0, display: "block" }}
-          loading="lazy"
-        />
+        <>
+          <KangarooCrossing height={260} showChip={false} />
+          <button
+            type="button"
+            onClick={closeGame}
+            aria-label="Close mini-game"
+            className="absolute top-1 right-1 z-[3] w-7 h-7 rounded-full bg-black/40 text-white text-sm font-black grid place-items-center cursor-pointer hover:bg-black/60"
+          >
+            ✕
+          </button>
+        </>
       ) : (
         <>
           <span className="ground-line" aria-hidden="true" />

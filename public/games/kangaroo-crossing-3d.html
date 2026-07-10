@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kangaroo Crossing 3D — a BGHS mini game</title>
+<style>
+  :root { --red:#e81c25; --red-dark:#b31217; --ink:#1c1c1e; --gold:#f2b01e; --paper:#f7f5f2; }
+  html, body { margin:0; padding:0; background:transparent; }
+  .kc-stage {
+    position:relative; width:100%; height:260px; overflow:hidden; user-select:none;
+    font-family:'Lato','Helvetica Neue',Arial,sans-serif; background:#eaf6fb;
+    border-top:4px solid var(--ink); border-bottom:4px solid var(--ink);
+  }
+  canvas { display:block; }
+  .kc-hud {
+    position:absolute; top:8px; right:12px; display:flex; gap:14px; align-items:center;
+    font-weight:900; font-size:13px; color:var(--ink); text-transform:uppercase; letter-spacing:.06em;
+    text-shadow:0 1px 0 rgba(255,255,255,.6);
+  }
+  .kc-scene { color:var(--red-dark); }
+  .kc-pop {
+    position:absolute; top:34px; right:14px; font-weight:900; color:#b8860b; font-size:14px;
+    opacity:0; transition:opacity .2s, transform .6s; pointer-events:none;
+  }
+  .kc-pop.show { opacity:1; transform:translateY(-10px); }
+  .kc-btn {
+    background:rgba(255,255,255,.85); border:2px solid var(--ink); border-radius:999px;
+    font:900 12px/1 'Lato',sans-serif; padding:6px 10px; cursor:pointer; color:var(--ink);
+  }
+  .kc-btn:focus-visible { outline:3px solid #1a4fd6; outline-offset:2px; }
+  .kc-overlay {
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; background:rgba(247,245,242,.9); text-align:center; padding:0 16px; z-index:5;
+  }
+  .kc-overlay[hidden] { display:none; }
+  .kc-overlay h2 { margin:0; font-size:clamp(18px,3vw,26px); font-weight:900; text-transform:uppercase; color:var(--ink); }
+  .kc-overlay h2 span { color:var(--red); }
+  .kc-overlay p { margin:0; font-size:13px; color:#454549; max-width:62ch; }
+  .kc-start { background:var(--red); color:#fff; border-color:var(--red-dark); padding:9px 22px; font-size:14px; }
+  .kc-sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<div class="kc-stage" id="kc">
+  <h2 class="kc-sr">Kangaroo Crossing 3D: an optional mini game. Help the BGHS kangaroo hop through a school day. Press the start button, then jump with space or up arrow and duck with the down arrow.</h2>
+  <div id="kc-gl"></div>
+  <div class="kc-hud">
+    <span class="kc-scene" id="kc-scene" aria-hidden="true"></span>
+    <span id="kc-score" aria-label="Score">0</span>
+    <span id="kc-hi" style="color:#6b6862"></span>
+    <button class="kc-btn" id="kc-pause" aria-label="Pause game" hidden>&#10073;&#10073;</button>
+  </div>
+  <div class="kc-pop" id="kc-pop">+25</div>
+  <div class="kc-overlay" id="kc-overlay">
+    <h2>Kangaroo <span>Crossing</span> 3D</h2>
+    <p id="kc-msg"><strong>Space / &uarr; / tap</strong> to hop &middot; <strong>&darr; / swipe down</strong> to duck.
+    Grab the golden stars, dodge the teacher, and don&rsquo;t splash into the pool!</p>
+    <button class="kc-btn kc-start" id="kc-start">Play</button>
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from "three";
+
+/* ================= DOM + messaging ================= */
+const stage = document.getElementById("kc"), glHost = document.getElementById("kc-gl");
+const scoreEl = document.getElementById("kc-score"), hiEl = document.getElementById("kc-hi"),
+      sceneEl = document.getElementById("kc-scene"), overlay = document.getElementById("kc-overlay"),
+      msgEl = document.getElementById("kc-msg"), startBtn = document.getElementById("kc-start"),
+      pauseBtn = document.getElementById("kc-pause"), popEl = document.getElementById("kc-pop");
+
+const send = (type, value) => { try { parent.postMessage({ source: "kangaroo-crossing", type, value }, "*"); } catch (e) {} };
+
+let hi = 0; try { hi = parseInt(localStorage.getItem("kc3-hi") || "0", 10) || 0; } catch (e) {}
+hiEl.textContent = hi ? "Best " + hi : "";
+
+/* WebGL support check */
+function webglOK() {
+  try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); }
+  catch (e) { return false; }
+}
+if (!webglOK()) {
+  msgEl.innerHTML = "This device doesn&rsquo;t support 3D graphics. Try the classic edition instead: <strong>games/kangaroo-crossing-classic.html</strong>";
+  startBtn.hidden = true;
+  send("kc:nowebgl");
+  throw new Error("no webgl");
+}
+
+/* ================= renderer / scene / camera ================= */
+const H = 260;
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+glHost.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const DAY = { sky: 0xeaf6fb, hemi: 0.95, sun: 1.15, sunColor: 0xffffff };
+const NIGHT = { sky: 0x1d2440, hemi: 0.35, sun: 0.5, sunColor: 0xa9b8ff };
+let dayMix = 0, dayTarget = 0; /* 0 = day, 1 = night */
+scene.background = new THREE.Color(DAY.sky);
+scene.fog = new THREE.Fog(DAY.sky, 26, 46);
+
+const camBase = new THREE.Vector3(0, 4.4, 13);
+let cam, viewW = 30;
+function makeCamera() {
+  const aspect = (stage.clientWidth || 900) / H;
+  const vh = 8.2, vw = vh * aspect; viewW = vw;
+  cam = new THREE.OrthographicCamera(-vw / 2, vw / 2, vh * 0.72, -vh * 0.28, 0.1, 100);
+  cam.position.copy(camBase);
+  cam.lookAt(0, 1.5, 0);
+}
+function resize() {
+  renderer.setSize(stage.clientWidth || 900, H);
+  makeCamera();
+}
+resize();
+addEventListener("resize", resize);
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0xcfc4ae, DAY.hemi);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(DAY.sunColor, DAY.sun);
+sun.position.set(6, 12, 7);
+sun.castShadow = true;
+sun.shadow.mapSize.set(1024, 1024);
+sun.shadow.camera.left = -18; sun.shadow.camera.right = 18;
+sun.shadow.camera.top = 12; sun.shadow.camera.bottom = -6;
+scene.add(sun);
+
+/* ================= voxel helpers ================= */
+const mats = {};
+const mat = (c) => mats[c] || (mats[c] = new THREE.MeshLambertMaterial({ color: c }));
+function box(w, h, d, c, x, y, z, parent) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(c));
+  m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true;
+  (parent || scene).add(m);
+  return m;
+}
+
+/* ground */
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(80, 24), new THREE.MeshLambertMaterial({ color: 0xdcd2bd }));
+ground.rotation.x = -Math.PI / 2; ground.position.y = 0; ground.receiveShadow = true;
+scene.add(ground);
+const track = new THREE.Mesh(new THREE.PlaneGeometry(80, 4.4), new THREE.MeshLambertMaterial({ color: 0x3a3a3e }));
+track.rotation.x = -Math.PI / 2; track.position.set(0, 0.01, 0.4); track.receiveShadow = true;
+scene.add(track);
+/* moving gold dashes for speed feel */
+const dashes = [];
+for (let i = 0; i < 16; i++) { const d = box(0.9, 0.04, 0.14, 0xf2b01e, -20 + i * 2.6, 0.05, 0.4); dashes.push(d); }
+
+/* clouds */
+const clouds = [];
+for (let i = 0; i < 4; i++) {
+  const g = new THREE.Group();
+  box(2.2, 0.7, 1, 0xffffff, 0, 0, 0, g); box(1.4, 0.6, 0.9, 0xffffff, 1.2, 0.35, 0, g); box(1.1, 0.5, 0.9, 0xffffff, -1.1, 0.3, 0, g);
+  g.position.set(-14 + i * 9, 5 + (i % 2), -6); scene.add(g); clouds.push(g);
+}
+
+/* ================= kangaroo ================= */
+const RED = 0xe81c25, RED_D = 0xb31217, GOLD = 0xf2b01e, INK = 0x1c1c1e;
+/* The site's own kangaroo artwork (public/mascot-kangaroo.png), billboarded
+   as a sprite. `roo` stays a Group so the rest of the file's physics and
+   collision code (which treats roo.position as the ground-contact point)
+   doesn't need to change — the sprite is just offset upward inside it. */
+const roo = new THREE.Group();
+const rooTexture = new THREE.TextureLoader().load("/mascot-kangaroo.png");
+if ("colorSpace" in rooTexture) rooTexture.colorSpace = THREE.SRGBColorSpace;
+const ROO_H = 2.05, ROO_W = ROO_H * (460 / 600);
+const rooSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: rooTexture, transparent: true }));
+rooSprite.scale.set(ROO_W, ROO_H, 1);
+rooSprite.position.set(0.15, ROO_H / 2, 0);
+roo.add(rooSprite);
+roo.position.set(-5.2, 0, 0);
+scene.add(roo);
+
+/* ================= particles ================= */
+const parts = [];
+for (let i = 0; i < 42; i++) {
+  const p = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.16, 0.16), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+  p.visible = false; scene.add(p); parts.push({ m: p, v: new THREE.Vector3(), life: 0 });
+}
+function burst(pos, color, n, power) {
+  let used = 0;
+  for (const p of parts) {
+    if (p.life > 0) continue;
+    p.m.material = new THREE.MeshBasicMaterial({ color });
+    p.m.position.copy(pos);
+    p.v.set((Math.random() - 0.4) * power, Math.random() * power, (Math.random() - 0.5) * power * 0.6);
+    p.life = 0.6 + Math.random() * 0.4; p.m.visible = true;
+    if (++used >= n) break;
+  }
+}
+
+/* ================= obstacles ================= */
+const SCENES = ["Classroom", "Hallway", "Gym", "Track Field", "Pool Deck"];
+const SPAWNS = [["desk","book","apple","star"],["teacher","book","cone","star"],["ball","cone","book","star"],["hurdle","hurdle","book","star"],["water","water","ball","star"]];
+let obstacles = [];
+
+function makeOb(type) {
+  const g = new THREE.Group(); g.userData.type = type;
+  if (type === "desk")   { box(1.5,0.14,1,0x8a5a2b,0,1.05,0,g); box(0.16,1,0.16,0x6d4522,-0.6,0.5,0.35,g); box(0.16,1,0.16,0x6d4522,0.6,0.5,-0.35,g); box(0.16,1,0.16,0x6d4522,-0.6,0.5,-0.35,g); box(0.16,1,0.16,0x6d4522,0.6,0.5,0.35,g); box(0.6,0.08,0.45,0xf7f5f2,0.1,1.16,0,g); g.userData.w=1.5; g.userData.h=1.2; }
+  if (type === "apple")  { box(0.5,0.5,0.5,0xc9151d,0,0.3,0,g); box(0.1,0.2,0.1,0x2f5d3a,0,0.62,0,g); g.userData.w=0.5; g.userData.h=0.62; }
+  if (type === "cone")   { box(0.55,0.35,0.55,GOLD,0,0.18,0,g); box(0.34,0.4,0.34,GOLD,0,0.5,0,g); box(0.2,0.3,0.2,0xffffff,0,0.78,0,g); g.userData.w=0.55; g.userData.h=0.95; }
+  if (type === "hurdle") { box(1.1,0.14,0.2,RED,0,1.06,0,g); box(0.1,1.05,0.2,INK,-0.5,0.53,0,g); box(0.1,1.05,0.2,INK,0.5,0.53,0,g); g.userData.w=1.1; g.userData.h=1.15; }
+  if (type === "teacher"){ box(0.7,1.1,0.5,INK,0,0.85,0,g); box(0.44,0.44,0.44,0xe8c39e,0,1.68,0,g); box(0.48,0.14,0.48,0x4a4a4f,0,1.94,0,g); box(0.5,0.1,0.12,0xd9c9a8,0.42,1.1,0,g); const ex=box(0.12,0.3,0.12,RED,0.1,2.35,0,g); g.userData.ex=ex; g.userData.w=0.8; g.userData.h=2.0; g.userData.teacher=true; }
+  if (type === "ball")   { const b=new THREE.Mesh(new THREE.SphereGeometry(0.42,12,10),mat(0xd2691e)); b.castShadow=true; b.position.y=0.42; g.add(b); g.userData.ball=b; g.userData.w=0.8; g.userData.h=0.84; g.userData.phase=Math.random()*6; }
+  if (type === "book")   { const b=new THREE.Group(); box(0.9,0.16,0.6,0x1a4fd6,0,0,0,b); box(0.06,0.18,0.62,0xffffff,0,0,0,b); box(0.9,0.04,0.6,0xf7f5f2,0,0.1,0,b); b.position.y=1.9; g.add(b); g.userData.book=b; g.userData.w=0.9; g.userData.h=0.5; g.userData.fly=1.9; }
+  if (type === "water")  { const wdt=2.4+Math.random(); box(wdt,0.18,2.4,0x4aa8c9,0,-0.06,0.4,g); box(wdt*0.85,0.05,1.6,0xbfe3ef,0,0.05,0.4,g); g.userData.w=wdt; g.userData.h=0.25; g.userData.water=true; }
+  if (type === "star")   { const s=new THREE.Mesh(new THREE.OctahedronGeometry(0.34),mat(GOLD)); s.castShadow=true; s.position.y=1.5; g.add(s); g.userData.star=s; g.userData.w=0.5; g.userData.h=0.6; g.userData.pickup=true; }
+  g.position.x = 20; scene.add(g);
+  return g;
+}
+
+/* ================= scenery per zone ================= */
+let propGroup = new THREE.Group(); scene.add(propGroup);
+function buildProps(idx) {
+  scene.remove(propGroup); propGroup = new THREE.Group();
+  if (idx === 0) { const b=new THREE.Group(); box(6,3,0.3,0x2f5d3a,0,2.6,0,b); box(6.3,0.2,0.4,0x8a5a2b,0,1,0,b); box(2.4,0.16,0.34,0xffffff,-1,3,0.05,b); box(1.6,0.16,0.34,0xffffff,0.6,2.4,0.05,b); b.position.set(-4,0,-4.5); propGroup.add(b);
+    for (let i=0;i<3;i++){ const d=new THREE.Group(); box(1.3,0.12,0.9,0x8a5a2b,0,0.95,0,d); box(0.14,0.9,0.14,0x6d4522,-0.5,0.45,0.3,d); box(0.14,0.9,0.14,0x6d4522,0.5,0.45,-0.3,d); d.position.set(2+i*4,0,-3.6); propGroup.add(d); } }
+  if (idx === 1) { for (let i=0;i<9;i++){ const l=new THREE.Group(); box(1.5,3.2,0.5,i%2?0xb31217:0xc9151d,0,1.9,0,l); box(0.24,0.08,0.55,0x8f0e13,0.4,1.9,0.02,l); l.position.set(-12+i*3.1,0,-4.2); propGroup.add(l); } }
+  if (idx === 2) { const h=new THREE.Group(); box(0.22,4.4,0.22,INK,0,2.2,0,h); box(1.8,1.2,0.14,0xffffff,0,4.1,0.2,h);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(0.5,0.07,8,20),mat(RED)); ring.rotation.x=Math.PI/2; ring.position.set(0,3.55,0.75); ring.castShadow=true; h.add(ring);
+    h.position.set(3,0,-3.8); propGroup.add(h);
+    for (let i=0;i<4;i++) propGroup.add(Object.assign(box(2.6,0.06,1.4,0xe8d9bd,-10+i*6,0.02,-2.6,new THREE.Group()).parent)); }
+  if (idx === 3) { const p=new THREE.Group(); box(0.16,2.6,0.16,INK,-3,1.3,0,p); box(0.16,2.6,0.16,INK,3,1.3,0,p); box(6.2,0.9,0.1,GOLD,0,2.5,0,p); p.position.set(-2,0,-4.4); propGroup.add(p);
+    for (let i=0;i<6;i++) propGroup.add(Object.assign(box(3.4,0.05,0.2,0xc96f4a,-12+i*5,0.02,-2.8,new THREE.Group()).parent)); }
+  if (idx === 4) { const pool=new THREE.Group(); box(14,0.2,3.4,0x4aa8c9,0,0.02,-3.4,pool); for (let i=0;i<10;i++) box(0.5,0.1,0.24,i%2?RED:0xffffff,-6+i*1.3,0.16,-3.4,pool); pool.position.set(0,0,0); propGroup.add(pool);
+    const board=new THREE.Group(); box(0.2,2.2,0.2,0xffffff,0,1.1,0,board); box(1.8,0.12,0.5,0xffffff,0.7,2.2,0,board); board.position.set(6,0,-2.6); propGroup.add(board); }
+  propGroup.position.z = -0.4; propGroup.scale.set(1, 0.01, 1);
+  scene.add(propGroup);
+}
+buildProps(0);
+let propPop = 1;
+
+/* ================= game state ================= */
+let state = "idle", paused = false, autoPaused = false, t = 0, last = 0,
+    dist = 0, score = 0, speed = 6, spawnIn = 1.3,
+    sceneIdx = 0, sceneT = 0, SCENE_LEN = 14, shake = 0,
+    vy = 0, ducking = false, hop = 0, scoreTick = 0;
+const GRAV = 26, JUMP = 9.4;
+
+sceneEl.textContent = SCENES[0];
+
+function rooBox() {
+  const h = ducking ? 0.8 : 1.55, w = ducking ? 1.5 : 1.0;
+  return { x: roo.position.x - w / 2, y: roo.position.y, w, h };
+}
+function collide(o) {
+  const rb = rooBox();
+  const ow = o.userData.w, oh = o.userData.h;
+  let oy = o.position.y, ox = o.position.x - ow / 2;
+  if (o.userData.fly) oy = o.userData.fly - 0.25;
+  if (o.userData.water) { /* only when on the ground */
+    if (roo.position.y > 0.2) return false;
+    return rb.x < ox + ow - 0.5 && rb.x + rb.w > ox + 0.5;
+  }
+  const pad = 0.18;
+  return rb.x + pad < ox + ow && rb.x + rb.w - pad > ox && rb.y < oy + oh && rb.y + rb.h > oy + (o.userData.fly ? 0 : 0);
+}
+
+/* ================= input ================= */
+function jump() { if (state === "run" && !paused && roo.position.y <= 0.01) { vy = JUMP; ducking = false; burst(roo.position.clone().add(new THREE.Vector3(0, 0.1, 0)), 0xcfc4ae, 5, 2.4); } }
+function duck(on) { if (state === "run" && roo.position.y <= 0.01) ducking = on; }
+
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space" || e.code === "ArrowUp") {
+    if (state !== "run") { if (!overlay.hidden && document.activeElement !== startBtn) { e.preventDefault(); start(); } return; }
+    e.preventDefault(); jump();
+  } else if (e.code === "ArrowDown") { if (state === "run") { e.preventDefault(); duck(true); } }
+  else if (e.code === "Escape" && state === "run") setPaused(!paused, false);
+});
+document.addEventListener("keyup", (e) => { if (e.code === "ArrowDown") duck(false); });
+let touchY = null;
+stage.addEventListener("touchstart", (e) => { if (state === "run") { touchY = e.touches[0].clientY; jump(); } }, { passive: true });
+stage.addEventListener("touchmove", (e) => { if (touchY !== null && e.touches[0].clientY - touchY > 28) { duck(true); setTimeout(() => duck(false), 550); touchY = null; } }, { passive: true });
+renderer.domElement.addEventListener("mousedown", () => { if (state === "run") jump(); });
+
+startBtn.addEventListener("click", start);
+pauseBtn.addEventListener("click", () => setPaused(!paused, false));
+addEventListener("blur", () => { if (state === "run" && !paused) setPaused(true, false); });
+
+/* parent page commands (Next.js component) */
+addEventListener("message", (e) => {
+  const d = e.data || {};
+  if (d.target !== "kangaroo-crossing") return;
+  if (d.type === "pause") setPaused(true, !!d.auto);
+  if (d.type === "resume") { if (!autoPaused && d.auto) return; setPaused(false, false); }
+  if (d.type === "restart") start();
+});
+
+function setPaused(v, auto) {
+  if (state !== "run" || paused === v) return;
+  paused = v; autoPaused = v && auto;
+  pauseBtn.innerHTML = paused ? "&#9654;" : "&#10073;&#10073;";
+  pauseBtn.setAttribute("aria-label", paused ? "Resume game" : "Pause game");
+  send(paused ? "kc:paused" : "kc:resumed");
+  if (!paused) { last = performance.now(); requestAnimationFrame(loop); }
+}
+
+function start() {
+  obstacles.forEach((o) => scene.remove(o)); obstacles = [];
+  dist = 0; score = 0; speed = 6; spawnIn = 1.4; sceneIdx = 0; sceneT = 0;
+  dayTarget = 0; shake = 0; vy = 0; ducking = false; hop = 0;
+  roo.position.y = 0; roo.rotation.z = 0;
+  buildProps(0); propPop = 0;
+  state = "run"; paused = false; autoPaused = false;
+  overlay.hidden = true; pauseBtn.hidden = false;
+  send("kc:start");
+  last = performance.now();
+  requestAnimationFrame(loop);
+}
+
+function gameOver() {
+  state = "over"; pauseBtn.hidden = true; shake = 0.5;
+  burst(roo.position.clone().add(new THREE.Vector3(0, 1, 0)), 0xe81c25, 14, 5);
+  burst(roo.position.clone().add(new THREE.Vector3(0, 1, 0)), 0xffffff, 10, 4);
+  roo.rotation.z = -0.6;
+  if (score > hi) { hi = score; try { localStorage.setItem("kc3-hi", String(hi)); } catch (e) {} send("kc:hiscore", hi); }
+  hiEl.textContent = "Best " + hi;
+  send("kc:gameover", score);
+  msgEl.innerHTML = "The bell got you! You scored <strong>" + score + "</strong>" +
+    (score >= hi && score > 0 ? " &mdash; new school record! &#127942;" : "") + "<br>Space / &uarr; to hop &middot; &darr; to duck.";
+  startBtn.textContent = "Hop again";
+  overlay.hidden = false; startBtn.focus();
+}
+
+/* ================= spawn / update ================= */
+function spawn() {
+  const pool = SPAWNS[sceneIdx];
+  const type = pool[Math.floor(Math.random() * pool.length)];
+  const o = makeOb(type);
+  o.position.x = viewW / 2 + 3;
+  obstacles.push(o);
+}
+
+function update(dt) {
+  t += dt; dist += speed * dt; sceneT += dt;
+  speed = Math.min(11.5, 6 + dist / 130);
+  score = Math.floor(dist * 1.6);
+  scoreEl.textContent = score;
+  scoreTick += dt; if (scoreTick > 0.5) { scoreTick = 0; send("kc:score", score); }
+
+  if (sceneT > SCENE_LEN) {
+    sceneT = 0; sceneIdx = (sceneIdx + 1) % SCENES.length;
+    buildProps(sceneIdx); propPop = 0;
+    sceneEl.textContent = SCENES[sceneIdx];
+    if (sceneIdx % 2 === 1) dayTarget = 1; else dayTarget = 0; /* dino-style day/night flips */
+    send("kc:scene", SCENES[sceneIdx]);
+  }
+  propPop = Math.min(1, propPop + dt * 2.2);
+  propGroup.scale.y = 0.01 + 0.99 * (1 - Math.pow(1 - propPop, 3));
+
+  /* day/night lerp */
+  dayMix += (dayTarget - dayMix) * Math.min(1, dt * 1.4);
+  const sky = new THREE.Color(DAY.sky).lerp(new THREE.Color(NIGHT.sky), dayMix);
+  scene.background = sky; scene.fog.color = sky;
+  hemi.intensity = DAY.hemi + (NIGHT.hemi - DAY.hemi) * dayMix;
+  sun.intensity = DAY.sun + (NIGHT.sun - DAY.sun) * dayMix;
+  sun.color.set(new THREE.Color(DAY.sunColor).lerp(new THREE.Color(NIGHT.sunColor), dayMix));
+  stage.style.background = "#" + sky.getHexString();
+
+  /* roo physics + animation */
+  vy -= GRAV * dt; roo.position.y += vy * dt;
+  if (roo.position.y < 0) { if (vy < -6) burst(roo.position.clone(), 0xcfc4ae, 4, 2); roo.position.y = 0; vy = 0; }
+  hop += dt * (roo.position.y <= 0.01 ? 11 : 4);
+  const grounded = roo.position.y <= 0.01;
+  const squash = grounded ? 1 + Math.sin(hop) * 0.05 : 1.06;
+  roo.scale.set(ducking ? 1.25 : 1, ducking ? 0.62 : squash, 1);
+  roo.rotation.z = state === "over" ? -0.6 : (grounded ? 0 : THREE.MathUtils.clamp(vy * 0.03, -0.25, 0.3));
+
+  /* dashes + clouds */
+  for (const d of dashes) { d.position.x -= speed * dt; if (d.position.x < -viewW / 2 - 2) d.position.x += 16 * 2.6; }
+  for (const c of clouds) { c.position.x -= dt * 0.35; if (c.position.x < -viewW / 2 - 6) c.position.x = viewW / 2 + 6; }
+
+  /* spawn + move obstacles */
+  spawnIn -= dt;
+  if (spawnIn <= 0) { spawn(); spawnIn = (0.8 + Math.random() * 0.8) * (6.5 / speed); }
+  for (let i = obstacles.length - 1; i >= 0; i--) {
+    const o = obstacles[i], u = o.userData;
+    o.position.x -= speed * dt * (u.teacher ? 1.15 : 1);
+    if (u.teacher) { o.position.y = Math.abs(Math.sin(t * 9)) * 0.12; u.ex.visible = Math.sin(t * 6) > 0; }
+    if (u.ball) u.ball.position.y = 0.42 + Math.abs(Math.sin(t * 4 + u.phase)) * 1.5;
+    if (u.book) { u.book.rotation.z = Math.sin(t * 5) * 0.5; u.book.position.y = u.fly + Math.sin(t * 3) * 0.15; }
+    if (u.star) { u.star.rotation.y += dt * 4; u.star.position.y = 1.5 + Math.sin(t * 3) * 0.2; }
+    if (collide(o)) {
+      if (u.pickup) {
+        score += 25; dist += 25 / 1.6;
+        burst(o.position.clone().add(new THREE.Vector3(0, 1.4, 0)), GOLD, 10, 3.5);
+        popEl.classList.add("show"); setTimeout(() => popEl.classList.remove("show"), 500);
+        scene.remove(o); obstacles.splice(i, 1); continue;
+      }
+      gameOver(); return;
+    }
+    if (o.position.x < -viewW / 2 - 4) { scene.remove(o); obstacles.splice(i, 1); }
+  }
+
+  /* particles */
+  for (const p of parts) {
+    if (p.life <= 0) continue;
+    p.life -= dt; p.v.y -= 12 * dt;
+    p.m.position.addScaledVector(p.v, dt);
+    p.m.scale.setScalar(Math.max(0.05, p.life));
+    if (p.life <= 0 || p.m.position.y < 0) { p.life = 0; p.m.visible = false; }
+  }
+
+  /* camera shake */
+  shake = Math.max(0, shake - dt * 1.6);
+  cam.position.set(
+    camBase.x + (Math.random() - 0.5) * shake * 0.5,
+    camBase.y + (Math.random() - 0.5) * shake * 0.4,
+    camBase.z
+  );
+}
+
+/* ================= loop ================= */
+function loop(now) {
+  if (paused) { renderer.render(scene, cam); return; }
+  const dt = Math.min(0.033, (now - last) / 1000); last = now;
+  if (state === "run") update(dt);
+  else { /* idle/over: gentle idle bob + particles decay */
+    t += dt; hop += dt * 4;
+    roo.scale.y = 1 + Math.sin(hop) * 0.03;
+    for (const p of parts) { if (p.life > 0) { p.life -= dt; p.v.y -= 12 * dt; p.m.position.addScaledVector(p.v, dt); if (p.life <= 0) p.m.visible = false; } }
+    shake = Math.max(0, shake - dt * 1.6);
+    cam.position.set(camBase.x + (Math.random() - 0.5) * shake * 0.5, camBase.y + (Math.random() - 0.5) * shake * 0.4, camBase.z);
+  }
+  renderer.render(scene, cam);
+  requestAnimationFrame(loop);
+}
+send("kc:ready", { hi });
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

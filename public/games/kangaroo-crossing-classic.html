@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kangaroo Crossing — a BGHS mini game</title>
+<style>
+  :root { --red:#e81c25; --red-dark:#b31217; --ink:#1c1c1e; --gold:#f2b01e; --paper:#f7f5f2; }
+  html, body { margin:0; padding:0; background:transparent; }
+  .kc-stage {
+    position:relative; width:100%; height:220px; overflow:hidden; user-select:none;
+    font-family:'Lato','Helvetica Neue',Arial,sans-serif; background:var(--paper);
+    border-top:4px solid var(--ink); border-bottom:4px solid var(--ink);
+  }
+  canvas { display:block; width:100%; height:100%; }
+  .kc-hud {
+    position:absolute; top:8px; right:12px; display:flex; gap:14px; align-items:center;
+    font-weight:900; font-size:13px; color:var(--ink); text-transform:uppercase; letter-spacing:.06em;
+  }
+  .kc-hud .kc-scene { color:var(--red-dark); }
+  .kc-btn {
+    background:rgba(255,255,255,.85); border:2px solid var(--ink); border-radius:999px;
+    font:900 12px/1 'Lato',sans-serif; padding:6px 10px; cursor:pointer; color:var(--ink);
+  }
+  .kc-btn:focus-visible { outline:3px solid #1a4fd6; outline-offset:2px; }
+  .kc-overlay {
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; background:rgba(247,245,242,.92); text-align:center; padding:0 16px;
+  }
+  .kc-overlay[hidden] { display:none; }
+  .kc-overlay h2 { margin:0; font-size:clamp(18px,3vw,26px); font-weight:900; text-transform:uppercase; color:var(--ink); }
+  .kc-overlay h2 span { color:var(--red); }
+  .kc-overlay p { margin:0; font-size:13px; color:#454549; max-width:60ch; }
+  .kc-start { background:var(--red); color:#fff; border-color:var(--red-dark); padding:9px 22px; font-size:14px; }
+  .kc-sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<div class="kc-stage" id="kc">
+  <h2 class="kc-sr">Kangaroo Crossing: an optional mini game. Help the BGHS kangaroo hop through a school day. Press the start button, then jump with space or up arrow and duck with the down arrow.</h2>
+  <canvas id="kc-canvas" aria-hidden="true"></canvas>
+  <div class="kc-hud">
+    <span class="kc-scene" id="kc-scene" aria-hidden="true"></span>
+    <span id="kc-score" aria-label="Score">0</span>
+    <span id="kc-hi" style="color:#8a877f"></span>
+    <button class="kc-btn" id="kc-pause" aria-label="Pause game" hidden>&#10073;&#10073;</button>
+  </div>
+  <div class="kc-overlay" id="kc-overlay">
+    <h2>Kangaroo <span>Crossing</span></h2>
+    <p id="kc-msg">Help our Kangaroo make it through the school day! <strong>Space / &uarr; / tap</strong> to hop &middot; <strong>&darr; / swipe down</strong> to duck flying textbooks. Watch for the teacher!</p>
+    <button class="kc-btn kc-start" id="kc-start">Play</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  /* ============ setup ============ */
+  var stage = document.getElementById("kc");
+  var cv = document.getElementById("kc-canvas");
+  var cx = cv.getContext("2d");
+  var H = 220, W = 900, DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var GROUND = H - 34;
+
+  function resize() {
+    W = stage.clientWidth || 900;
+    cv.width = W * DPR; cv.height = H * DPR;
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  var scoreEl = document.getElementById("kc-score"),
+      hiEl = document.getElementById("kc-hi"),
+      sceneEl = document.getElementById("kc-scene"),
+      overlay = document.getElementById("kc-overlay"),
+      msgEl = document.getElementById("kc-msg"),
+      startBtn = document.getElementById("kc-start"),
+      pauseBtn = document.getElementById("kc-pause");
+
+  var hi = 0;
+  try { hi = parseInt(localStorage.getItem("kc-hi") || "0", 10) || 0; } catch (e) {}
+  hiEl.textContent = hi ? "Best " + hi : "";
+
+  /* the site's own kangaroo artwork, reused as the player sprite */
+  var rooImg = new Image();
+  rooImg.src = "/mascot-kangaroo.png";
+  var ROO_ASPECT = 460 / 600;
+
+  /* ============ state ============ */
+  var state = "idle", paused = false, t = 0, last = 0, dist = 0, score = 0, speed = 300;
+  var roo = { x: 64, y: GROUND, vy: 0, duck: false, hop: 0, dead: false };
+  var obstacles = [], popups = [], spawnIn = 1.2;
+  var SCENES = ["Classroom", "Hallway", "Gym", "Track Field", "Pool Deck"];
+  var scene = 0, sceneT = 0, SCENE_LEN = 14, bellFlash = 0;
+
+  /* obstacle spawn tables per scene */
+  var SPAWNS = [
+    ["desk", "book", "apple"],
+    ["teacher", "book", "cone"],
+    ["ball", "cone", "book"],
+    ["hurdle", "hurdle", "book", "cone"],
+    ["water", "water", "ball"]
+  ];
+
+  /* ============ input ============ */
+  function jump() {
+    if (state !== "run" || paused) return;
+    if (roo.y >= GROUND - 1) { roo.vy = -600; roo.duck = false; }
+  }
+  function duck(on) { if (state === "run" && roo.y >= GROUND - 1) roo.duck = on; }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.code === "Space" || e.code === "ArrowUp") {
+      if (state !== "run") {
+        /* start (or restart) with the keyboard when the overlay is showing */
+        if (!overlay.hidden && document.activeElement !== startBtn) { e.preventDefault(); start(); }
+        return;
+      }
+      e.preventDefault(); jump();
+    } else if (e.code === "ArrowDown") { if (state === "run") { e.preventDefault(); duck(true); } }
+    else if (e.code === "Escape" && state === "run") togglePause();
+  });
+  document.addEventListener("keyup", function (e) { if (e.code === "ArrowDown") duck(false); });
+
+  var touchY = null;
+  stage.addEventListener("touchstart", function (e) {
+    if (state === "run") { touchY = e.touches[0].clientY; jump(); }
+  }, { passive: true });
+  stage.addEventListener("touchmove", function (e) {
+    if (touchY !== null && e.touches[0].clientY - touchY > 28) { duck(true); setTimeout(function(){ duck(false); }, 550); touchY = null; }
+  }, { passive: true });
+  cv.addEventListener("mousedown", function () { if (state === "run") jump(); });
+
+  startBtn.addEventListener("click", start);
+  pauseBtn.addEventListener("click", togglePause);
+  window.addEventListener("blur", function () { if (state === "run" && !paused) togglePause(); });
+
+  function togglePause() {
+    paused = !paused;
+    pauseBtn.innerHTML = paused ? "&#9654;" : "&#10073;&#10073;";
+    pauseBtn.setAttribute("aria-label", paused ? "Resume game" : "Pause game");
+    if (!paused) { last = performance.now(); requestAnimationFrame(loop); }
+  }
+
+  function start() {
+    obstacles = []; popups = []; dist = 0; score = 0; speed = 300; spawnIn = 1.4;
+    scene = 0; sceneT = 0; bellFlash = 0;
+    roo.y = GROUND; roo.vy = 0; roo.duck = false; roo.dead = false;
+    state = "run"; paused = false;
+    overlay.hidden = true; pauseBtn.hidden = false;
+    stage.focus && stage.focus();
+    last = performance.now();
+    requestAnimationFrame(loop);
+  }
+
+  function gameOver() {
+    roo.dead = true; state = "over"; pauseBtn.hidden = true;
+    if (score > hi) { hi = score; try { localStorage.setItem("kc-hi", String(hi)); } catch (e) {} }
+    hiEl.textContent = "Best " + hi;
+    msgEl.innerHTML = "The bell got you! You scored <strong>" + score + "</strong>" +
+      (score >= hi && score > 0 ? " &mdash; new school record! &#127942;" : "") +
+      "<br>Space / &uarr; to hop &middot; &darr; to duck.";
+    startBtn.textContent = "Hop again";
+    overlay.hidden = false;
+    startBtn.focus();
+  }
+
+  /* ============ obstacles ============ */
+  function spawn() {
+    var pool = SPAWNS[scene];
+    var type = pool[Math.floor(Math.random() * pool.length)];
+    var o = { type: type, x: W + 40, passed: false };
+    if (type === "desk")    { o.w = 46; o.h = 36; o.y = GROUND - 36; }
+    if (type === "apple")   { o.w = 20; o.h = 20; o.y = GROUND - 20; }
+    if (type === "cone")    { o.w = 24; o.h = 30; o.y = GROUND - 30; }
+    if (type === "hurdle")  { o.w = 34; o.h = 40; o.y = GROUND - 40; }
+    if (type === "teacher") { o.w = 30; o.h = 46; o.y = GROUND - 46; o.bob = Math.random() * 6; }
+    if (type === "ball")    { o.w = 26; o.h = 26; o.base = GROUND - 26; o.y = o.base; o.phase = Math.random() * 6; }
+    if (type === "book")    { o.w = 34; o.h = 18; o.y = GROUND - 52; o.spin = 0; }
+    if (type === "water")   { o.w = 70 + Math.random() * 30; o.h = 12; o.y = GROUND; }
+    obstacles.push(o);
+  }
+
+  function rooBox() {
+    var h = roo.duck ? 30 : 52, w = roo.duck ? 52 : 40;
+    return { x: roo.x - w / 2 + 6, y: roo.y - h, w: w - 12, h: h - 4 };
+  }
+  function hit(a, o) {
+    var ob = { x: o.x + 4, y: o.y + 3, w: o.w - 8, h: o.h - 4 };
+    if (o.type === "water") ob = { x: o.x + 8, y: GROUND - 6, w: o.w - 16, h: 10 };
+    return a.x < ob.x + ob.w && a.x + a.w > ob.x && a.y < ob.y + ob.h && a.y + a.h > ob.y;
+  }
+
+  /* ============ update ============ */
+  function update(dt) {
+    t += dt; dist += speed * dt; sceneT += dt;
+    speed = Math.min(560, 300 + dist / 90);
+    score = Math.floor(dist / 12);
+    scoreEl.textContent = score;
+
+    if (sceneT > SCENE_LEN) { sceneT = 0; scene = (scene + 1) % SCENES.length; bellFlash = 1.2; popups.push({ x: W / 2, y: 60, txt: "🔔 " + SCENES[scene] + "!", life: 1.4, big: true }); }
+    if (bellFlash > 0) bellFlash -= dt;
+    sceneEl.textContent = SCENES[scene];
+
+    roo.vy += 1600 * dt; roo.y += roo.vy * dt;
+    if (roo.y > GROUND) { roo.y = GROUND; roo.vy = 0; }
+    roo.hop += dt * (roo.y >= GROUND - 1 ? 10 : 3);
+
+    spawnIn -= dt;
+    if (spawnIn <= 0) { spawn(); spawnIn = (0.85 + Math.random() * 0.8) * (330 / speed); }
+
+    var rb = rooBox();
+    for (var i = obstacles.length - 1; i >= 0; i--) {
+      var o = obstacles[i];
+      o.x -= speed * dt * (o.type === "teacher" ? 1.18 : 1);
+      if (o.type === "ball") o.y = o.base - Math.abs(Math.sin(t * 4 + o.phase)) * 46;
+      if (o.type === "book") { o.y += Math.sin(t * 6) * 12 * dt; o.spin += dt * 9; }
+      if (!o.passed && o.x + o.w < roo.x - 20) {
+        o.passed = true;
+        popups.push({ x: roo.x, y: roo.y - 70, txt: "A+", life: 0.7 });
+      }
+      if (hit(rb, o)) { gameOver(); }
+      if (o.x < -120) obstacles.splice(i, 1);
+    }
+    for (var j = popups.length - 1; j >= 0; j--) {
+      popups[j].life -= dt; popups[j].y -= 26 * dt;
+      if (popups[j].life <= 0) popups.splice(j, 1);
+    }
+  }
+
+  /* ============ drawing ============ */
+  function bg() {
+    var off = (dist * 0.5) % (W + 400);
+    cx.fillStyle = "#f7f5f2"; cx.fillRect(0, 0, W, H);
+    cx.save();
+    if (scene === 0) { /* classroom: chalkboard + desks */
+      cx.fillStyle = "#2f5d3a"; cx.fillRect(40 - off * 0.2 % 300, 30, 220, 80);
+      cx.strokeStyle = "#fff"; cx.strokeRect(40 - off * 0.2 % 300, 30, 220, 80);
+      cx.fillStyle = "#fff"; cx.font = "900 16px Lato, sans-serif";
+      cx.fillText("2 + 2 = 4", 70 - off * 0.2 % 300, 65);
+      cx.fillText("GO ROOS!", 70 - off * 0.2 % 300, 92);
+      cx.fillStyle = "#d9c9a8";
+      for (var d = 0; d < 4; d++) cx.fillRect(((d * 320 + 340 - off) % (W + 400)) - 200, GROUND - 26, 60, 8);
+    } else if (scene === 1) { /* hallway: lockers */
+      for (var l = 0; l < 14; l++) {
+        var lx = ((l * 90 - off * 0.6) % (W + 180)) - 90;
+        cx.fillStyle = l % 2 ? "#b31217" : "#c9151d"; cx.fillRect(lx, 26, 74, 110);
+        cx.fillStyle = "#8f0e13"; cx.fillRect(lx + 58, 76, 8, 3);
+      }
+    } else if (scene === 2) { /* gym: court + hoop */
+      cx.fillStyle = "#e8d9bd"; cx.fillRect(0, GROUND - 8, W, 8);
+      cx.strokeStyle = "#b31217"; cx.lineWidth = 3;
+      cx.beginPath(); cx.arc(((W - off * 0.7 % (W + 300))), GROUND - 4, 60, Math.PI, 0); cx.stroke();
+      var hx = ((640 - off * 0.6) % (W + 300));
+      cx.fillStyle = "#1c1c1e"; cx.fillRect(hx, 28, 6, 96);
+      cx.fillStyle = "#fff"; cx.fillRect(hx - 26, 28, 56, 36);
+      cx.strokeStyle = "#e81c25"; cx.strokeRect(hx - 26, 28, 56, 36);
+      cx.strokeStyle = "#e81c25"; cx.beginPath(); cx.arc(hx + 2, 70, 14, 0, Math.PI); cx.stroke();
+    } else if (scene === 3) { /* track: lane lines + banner */
+      cx.fillStyle = "#c96f4a"; cx.fillRect(0, GROUND - 10, W, 10);
+      cx.strokeStyle = "#fff"; cx.setLineDash([26, 20]); cx.lineWidth = 3;
+      cx.beginPath(); cx.moveTo(-(off % 46), GROUND - 5); cx.lineTo(W, GROUND - 5); cx.stroke(); cx.setLineDash([]);
+      cx.fillStyle = "#f2b01e"; cx.font = "900 15px Lato, sans-serif";
+      cx.fillText("BGHS KANGAROOS — HOME OF CHAMPIONS", ((W - off * 0.4 % (W + 500))) - 200, 46);
+    } else { /* pool deck: water shimmer + ropes */
+      cx.fillStyle = "#bfe3ef"; cx.fillRect(0, 26, W, 60);
+      cx.strokeStyle = "#e81c25"; cx.setLineDash([14, 12]);
+      cx.beginPath(); cx.moveTo(-(off % 26), 56); cx.lineTo(W, 56); cx.stroke(); cx.setLineDash([]);
+      cx.fillStyle = "#8fcfe3";
+      for (var wv = 0; wv < 12; wv++) cx.fillRect(((wv * 110 - off * 0.8) % (W + 220)) - 110, 74, 60, 4);
+    }
+    cx.restore();
+    /* ground */
+    cx.fillStyle = "#1c1c1e"; cx.fillRect(0, GROUND, W, H - GROUND);
+    cx.fillStyle = "#f2b01e";
+    for (var g = 0; g < W / 34 + 2; g++) cx.fillRect(((g * 34 - dist % 34)), GROUND, 16, 3);
+    if (bellFlash > 0) { cx.fillStyle = "rgba(242,176,30," + (bellFlash * 0.18) + ")"; cx.fillRect(0, 0, W, H); }
+  }
+
+  function drawRoo() {
+    var x = roo.x, y = roo.y, dk = roo.duck;
+    var legK = Math.sin(roo.hop) * (roo.y >= GROUND - 1 ? 5 : 2);
+    var bob = Math.abs(legK) * 0.4;
+    cx.save(); cx.translate(x, y);
+    if (roo.dead) cx.rotate(-0.35);
+    if (rooImg.complete && rooImg.naturalWidth > 0) {
+      var h = dk ? 46 : 72, w = h * ROO_ASPECT;
+      cx.save();
+      if (dk) cx.scale(1.22, 0.64);
+      cx.drawImage(rooImg, -w / 2, -h - bob, w, h);
+      cx.restore();
+    }
+    cx.restore();
+  }
+
+  function drawOb(o) {
+    cx.save(); cx.translate(o.x, o.y);
+    if (o.type === "desk") {
+      cx.fillStyle = "#8a5a2b"; cx.fillRect(0, 0, o.w, 8);
+      cx.fillRect(4, 8, 6, o.h - 8); cx.fillRect(o.w - 10, 8, 6, o.h - 8);
+      cx.fillStyle = "#d9c9a8"; cx.fillRect(6, -6, 20, 6);
+    } else if (o.type === "apple") {
+      cx.fillStyle = "#c9151d"; cx.beginPath(); cx.arc(10, 12, 9, 0, 7); cx.fill();
+      cx.fillStyle = "#2f5d3a"; cx.fillRect(9, 0, 3, 6);
+    } else if (o.type === "cone") {
+      cx.fillStyle = "#f2b01e"; cx.beginPath(); cx.moveTo(o.w / 2, 0); cx.lineTo(o.w, o.h); cx.lineTo(0, o.h); cx.fill();
+      cx.fillStyle = "#fff"; cx.fillRect(o.w / 2 - 7, o.h / 2, 14, 5);
+    } else if (o.type === "hurdle") {
+      cx.strokeStyle = "#1c1c1e"; cx.lineWidth = 4;
+      cx.strokeRect(2, 0, o.w - 4, 8); cx.beginPath();
+      cx.moveTo(4, 8); cx.lineTo(4, o.h); cx.moveTo(o.w - 4, 8); cx.lineTo(o.w - 4, o.h); cx.stroke();
+      cx.fillStyle = "#e81c25"; cx.fillRect(2, 0, o.w - 4, 8);
+    } else if (o.type === "teacher") {
+      var bob = Math.sin(t * 8 + o.bob) * 2;
+      cx.fillStyle = "#1c1c1e"; cx.fillRect(6, 14 + bob, 18, o.h - 14);       /* suit */
+      cx.fillStyle = "#e8c39e"; cx.beginPath(); cx.arc(15, 9 + bob, 8, 0, 7); cx.fill();
+      cx.fillStyle = "#4a4a4f"; cx.fillRect(7, -1 + bob, 16, 4);              /* hair */
+      cx.strokeStyle = "#1c1c1e"; cx.strokeRect(10, 6 + bob, 5, 4); cx.strokeRect(16, 6 + bob, 5, 4); /* glasses */
+      cx.fillStyle = "#fff"; cx.font = "900 13px Lato, sans-serif"; cx.fillStyle = "#b31217";
+      cx.fillText("!", 26, -2 + bob);                                          /* angry mark */
+      cx.fillStyle = "#d9c9a8"; cx.fillRect(-4, 26 + bob, 12, 8);              /* ruler */
+    } else if (o.type === "ball") {
+      cx.fillStyle = "#d2691e"; cx.beginPath(); cx.arc(13, 13, 13, 0, 7); cx.fill();
+      cx.strokeStyle = "#1c1c1e"; cx.beginPath(); cx.moveTo(0, 13); cx.lineTo(26, 13); cx.moveTo(13, 0); cx.lineTo(13, 26); cx.stroke();
+    } else if (o.type === "book") {
+      cx.translate(o.w / 2, o.h / 2); cx.rotate(Math.sin(o.spin) * 0.4); cx.translate(-o.w / 2, -o.h / 2);
+      cx.fillStyle = "#1a4fd6"; cx.fillRect(0, 0, o.w, o.h);
+      cx.fillStyle = "#fff"; cx.fillRect(o.w / 2 - 2, 0, 4, o.h);
+      cx.fillStyle = "#f2b01e"; cx.fillRect(0, 2, 6, o.h - 4);
+    } else if (o.type === "water") {
+      cx.fillStyle = "#1c1c1e"; cx.fillRect(0, 0, o.w, H - GROUND);
+      cx.fillStyle = "#4aa8c9"; cx.fillRect(3, 4, o.w - 6, H - GROUND - 6);
+      cx.fillStyle = "#bfe3ef";
+      for (var s = 0; s < o.w / 18; s++) cx.fillRect(4 + s * 18 + Math.sin(t * 5 + s) * 3, 7, 9, 3);
+    }
+    cx.restore();
+  }
+
+  function draw() {
+    bg();
+    obstacles.forEach(drawOb);
+    drawRoo();
+    cx.textAlign = "center";
+    popups.forEach(function (p) {
+      cx.fillStyle = p.big ? "#b31217" : "#2f7d3a";
+      cx.font = "900 " + (p.big ? 18 : 14) + "px Lato, sans-serif";
+      cx.globalAlpha = Math.max(0, Math.min(1, p.life * 2));
+      cx.fillText(p.txt, p.x, p.y);
+      cx.globalAlpha = 1;
+    });
+    cx.textAlign = "start";
+  }
+
+  /* ============ loop ============ */
+  function loop(now) {
+    if (state !== "run" || paused) { draw(); return; }
+    var dt = Math.min(0.033, (now - last) / 1000); last = now;
+    update(dt);
+    draw();
+    if (state === "run") requestAnimationFrame(loop);
+  }
+
+  /* idle preview frame */
+  draw();
+})();
+</script>
+</body>
+</html>
