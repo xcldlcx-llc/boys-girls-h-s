@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAuthorizedAdmin } from "@/lib/admin-auth";
-import { defaultPhotosSettings, type PhotosSettings } from "@/lib/settings";
+import { getAdminAuthState } from "@/lib/admin-auth";
+import { defaultPhotosSettings, getPhotosSettings, type PhotosSettings } from "@/lib/settings";
 import { writeSetting } from "@/lib/settings-write";
+import { appendChangelogEntry, diffSummary } from "@/lib/changelog";
 
 function sanitize(body: unknown): PhotosSettings | null {
   if (!body || typeof body !== "object") return null;
@@ -32,7 +33,8 @@ function sanitize(body: unknown): PhotosSettings | null {
 }
 
 export async function POST(req: NextRequest) {
-  if (!(await isAuthorizedAdmin())) {
+  const auth = await getAdminAuthState();
+  if (auth.status !== "authorized") {
     return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
   }
 
@@ -42,10 +44,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Invalid settings payload." }, { status: 400 });
   }
 
+  const before = await getPhotosSettings();
+
   const result = await writeSetting("photos", settings);
   if (!result.ok) {
     return NextResponse.json({ ok: false, error: result.error }, { status: 502 });
   }
+
+  await appendChangelogEntry({
+    timestamp: new Date().toISOString(),
+    email: auth.email,
+    panel: "Photos",
+    summary: diffSummary(before, settings),
+  });
 
   return NextResponse.json({ ok: true, settings });
 }

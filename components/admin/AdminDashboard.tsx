@@ -1,9 +1,19 @@
 "use client";
 import { useState } from "react";
 import { SETTINGS_CATEGORIES, IMPLEMENTED_CATEGORIES, type PhotosSettings } from "@/lib/settings";
+import type { ChangelogEntry } from "@/lib/changelog";
 import PhotosPanel from "./PhotosPanel";
+import ActivityLogPanel from "./ActivityLogPanel";
 
-export default function AdminDashboard({ photos, email }: { photos: PhotosSettings; email: string }) {
+export default function AdminDashboard({
+  photos,
+  email,
+  changelog,
+}: {
+  photos: PhotosSettings;
+  email: string;
+  changelog: ChangelogEntry[];
+}) {
   const [active, setActive] = useState<string>("Photos");
 
   return (
@@ -38,10 +48,22 @@ export default function AdminDashboard({ photos, email }: { photos: PhotosSettin
                 </li>
               );
             })}
+            <li className="border-t border-line mt-1 pt-1">
+              <button
+                type="button"
+                onClick={() => setActive("Activity Log")}
+                className={`w-full text-left py-3 px-5 text-[.92rem] border-0 cursor-pointer hover:bg-paper ${
+                  active === "Activity Log" ? "bg-paper font-black text-red-text" : "bg-transparent text-ink"
+                }`}
+              >
+                Activity Log
+              </button>
+            </li>
           </ul>
         </nav>
         <div className="p-6 md:p-8">
           {active === "Photos" ? <PhotosPanel initial={photos} /> : null}
+          {active === "Activity Log" ? <ActivityLogPanel entries={changelog} /> : null}
         </div>
       </div>
     </main>

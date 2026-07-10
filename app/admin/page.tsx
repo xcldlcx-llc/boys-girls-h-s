@@ -1,5 +1,6 @@
 import { getAdminAuthState } from "@/lib/admin-auth";
 import { getPhotosSettings } from "@/lib/settings";
+import { getChangelog } from "@/lib/changelog";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 
 export const dynamic = "force-dynamic";
@@ -36,6 +37,6 @@ export default async function AdminPage() {
     );
   }
 
-  const photos = await getPhotosSettings();
-  return <AdminDashboard photos={photos} email={auth.email} />;
+  const [photos, changelog] = await Promise.all([getPhotosSettings(), getChangelog()]);
+  return <AdminDashboard photos={photos} email={auth.email} changelog={changelog} />;
 }
